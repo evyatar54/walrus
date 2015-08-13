@@ -1,0 +1,40 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'downloader/style.css' %}" />
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<div class="body">
+
+<div class="jumbotron well site_header">
+	<h1> Mass Searcher </h1>
+</div>
+
+<div class="container query_area">
+<h2> // here there will be a query area <h2>
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-4 left_toolbar">
+		</div>
+		<div class="col-md-8 right_toolbar">
+		</div>
+	</div>
+</div>
+
+<div class="container buttom_toolbar"></div>
+
+
+</div>
+
+<script>
+$(document).ready(function(){
+    $(".left_toolbar").html("wow");
+	$(".right_toolbar").html("wowowiwa");
+});
+</script>
