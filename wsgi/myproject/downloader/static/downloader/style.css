@@ -3,7 +3,7 @@ div.body
 {
 	background-color: #f0f0f0;
 	height: 100%;
-	color: white;
+	color: grey;
 }
 div.site_header
 {
@@ -11,9 +11,14 @@ div.site_header
 	background-color: rgb(41,166,229);
 }
 
-div.query_area
+div.main_app
 {
 	border-color: black;
 	border: 1px;
 	float: right;
+}
+
+.input
+{
+	width: 60%;
 }
