@@ -8,17 +8,27 @@ div.body
 div.site_header
 {
 	color: white;
-	background-color: rgb(41,166,229);
+	background-color: #30A0E0;
 }
 
 div.main_app
 {
-	border-color: black;
 	border: 1px;
-	float: right;
+	width: 70%;
+}
+
+div.table_area
+{
+	/*width: 70%;*/
+	/*background-color: #30A0E0;*/
 }
 
 .input
 {
-	width: 60%;
+	width: 95%;
+}
+
+.remoove_button
+{
+	float: right;
 }

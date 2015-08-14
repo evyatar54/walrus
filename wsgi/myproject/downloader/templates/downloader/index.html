@@ -1,6 +1,7 @@
 {% load staticfiles %}
-
+<head>
 <link rel="stylesheet" type="text/css" href="{% static 'downloader/style.css' %}" />
+<link rel="shortcut icon" href="{% static 'downloader/favicon.ico' %}" />
 
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
@@ -9,6 +10,7 @@
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+<head>
 
 {% verbatim %}
 <div class="body">
@@ -19,15 +21,19 @@
 
 	<div class="container main_app">
 
-		<div class="query_area" ng-app="myApp" ng-controller="queryCtrl">
+		<div class="raw query_area" ng-app="myApp" ng-controller="queryCtrl">
+			
 			<form novalidate>
-				<input class="input" type="text" ng-model="query"> <button ng-click="ok()"> OK </button>
+				<div class="col-md-12 well"> 
+					<input class="input" type="text" ng-model="query"/> 
+					<button ng-click="ok()"> OK </button>
+				</div>
 			</form>
 			
-			<div class="container table_area">
+			<div class="table_area">
 				<table class="table table-striped table-hover">
 					<tr class="tr" ng-repeat="x in queries track by $index">
-						<td class="td">{{x}}</td>
+						<td class="td">{{x}} <button class="remoove_button" ng-click="remove()"> Remove </button> </td>
 					</tr>
 				</table>
 			</div>
@@ -49,14 +55,24 @@ var app = angular.module('myApp', []);
 app.controller('queryCtrl', function($scope) {
     $scope.query = "Enter Query";
 	$scope.queries = new Array();
-    $scope.ok = function() {
+    $scope.ok = function() 
+	{
 		$scope.queries.push(angular.copy($scope.query));
 		$scope.query = "Enter Query";	
     };
+	
+	$scope.remove = function()
+	{
+		var remove_list = $(".remove_button");
+		
+		alert(remove_list);
+	};
 });
 </script>
 
 <script>
-$(document).ready(function(){
+$(".remove_button").click(function() {
+    var $item = $(this).closest("tr");
+    alert($item.html());
 });
 </script>
