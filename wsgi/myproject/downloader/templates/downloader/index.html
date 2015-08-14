@@ -31,9 +31,9 @@
 			</form>
 			
 			<div class="table_area">
-				<table class="table table-striped table-hover">
+				<table class="table table-striped table-hover" id="quries_table">
 					<tr class="tr" ng-repeat="x in queries track by $index">
-						<td class="td">{{x}} <button class="remoove_button" ng-click="remove()"> Remove </button> </td>
+						<td class="td">{{x}} <button class="remoove_button" ng-click="remove($index)"> Remove </button> </td>
 					</tr>
 				</table>
 			</div>
@@ -61,18 +61,18 @@ app.controller('queryCtrl', function($scope) {
 		$scope.query = "Enter Query";	
     };
 	
-	$scope.remove = function()
+	$scope.remove = function(i)
 	{
-		var remove_list = $(".remove_button");
-		
-		alert(remove_list);
+		$scope.queries.splice(i,1);
 	};
 });
 </script>
 
 <script>
-$(".remove_button").click(function() {
-    var $item = $(this).closest("tr");
-    alert($item.html());
-});
+/*
+$('#quries_table').on('click', 'input[type="button"]', function(e){
+	   //$(this).closest('tr').remove();
+	   alert('w');
+	});
+*/
 </script>
