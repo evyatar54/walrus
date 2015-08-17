@@ -9,9 +9,24 @@ from django.core.urlresolvers import reverse
 import sys, traceback
 
 def index(request):
+	
+	a = render(request, 'downloader/index.html' )
+	return a
+	"""
 	try:
 		a = render(request, 'downloader/index.html' )
 		return a
 	except:
 		traceback.print_exc(file=sys.stdout)
 		return HttpResponse("Error getting index.html, \nsee console log for exception details")
+	"""	
+		
+def search(queries):
+	return HttpResponse("wow")
+	"""
+	try:
+		return HttpResponse("wow")
+	except:
+		traceback.print_exc(file=sys.stdout)
+		return HttpResponse("Error getting index.html, \nsee console log for exception details")
+	"""

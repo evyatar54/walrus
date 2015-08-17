@@ -18,9 +18,12 @@ div.main_app
 }
 
 div.table_area
+{	
+}
+
+div.buttom_toolbar
 {
-	/*width: 70%;*/
-	/*background-color: #30A0E0;*/
+	width: 70%;
 }
 
 .input
@@ -28,7 +31,12 @@ div.table_area
 	width: 90%;
 }
 
-.remoove_button
+button.my_button
 {
+	/*
+	background-color: #30A0E0;
+	border-color: #30A0E0;
 	float: right;
+	border-radius: 5px;
+	*/
 }
