@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.template.context_processors import csrf
 import sys, traceback
-from KickassAPI import search
+#from KickassAPI import search
 
 def index(request):
 	
