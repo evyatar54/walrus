@@ -60,6 +60,11 @@
 			Submit
 		</a>
 		{% verbatim %}
+		<br>
+		<script>
+			
+		</script>
+		<button ng-click="go(queries)">go</button>
 	</div>
 
 </div>
@@ -90,6 +95,37 @@ app.controller('queryCtrl', function($scope) {
 		$scope.submited_queries = $scope.queries;
 		$scope.queries = new Array();
 	};
+	
+	$scope.go = function(Qs)
+	{	
+		var _url = "{% url 'search' %}";
+		data = {"csrfmiddlewaretoken": "{{ csrf_token }}", state:"inactive", "Qs": Qs};
+		$.post(_url, data, function(response)
+		{
+			window.innerHTML = response;
+			if(response === 'success')
+			{
+				alert('success: ' + response); 
+			}
+			else
+			{
+				alert('error: ' + response);
+			}
+		});
+		
+		$.get(_url, data, function(response)
+		{
+			window.innerHTML = response;
+			if(response === 'success')
+			{
+				alert('success: ' + response); 
+			}
+			else
+			{
+				alert('error: ' + response);
+			}
+		});
+	}
 });
 
 
