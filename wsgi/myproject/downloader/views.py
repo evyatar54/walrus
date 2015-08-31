@@ -8,7 +8,8 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.template.context_processors import csrf
 import sys, traceback
-#from KickassAPI import search
+import json
+from .Searchers import TPB_Searcher
 
 def index(request):
 	
@@ -21,19 +22,21 @@ def index(request):
 	
 	
 def search(request):
-	if request.method == 'POST':
+	if request.method == 'POST':			
 		if 'Qs[]' in request.POST:
 			Qs = request.POST.getlist('Qs[]')
-			return render(request, 'downloader/index.html' )
-			return HttpResponse('success')
+			Results = {}
+			if Qs:
+				t = TPB_Searcher.TPB_Searcher()
+				Results = t.search_queries(Qs)
+				#except:
+				#	err = traceback.format_exc()
+				#	return HttpResponse("search failed:\n" + err)
+			else:
+				pass
+					
+			return HttpResponse(json.dumps(Results), content_type="application/json")
 		else:
-			pass
+			return HttpResponse('No queries suplied to search')
 			
-	if request.method == 'GET':
-		if 'Qs[]' in request.GET:
-			Qs = request.GET.getlist('Qs[]')
-			return render(request, 'downloader/index.html' )
-			return HttpResponse('success')
-		else:
-			pass
-	return HttpRepsonse('FAIL!!!!!')
+	return HttpRepsonse('request method must be POST')
