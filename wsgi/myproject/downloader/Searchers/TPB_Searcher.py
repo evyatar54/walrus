@@ -46,12 +46,12 @@ class TPB_Searcher:
 				
 				info 	= line.xpath('.//font')
 				if info:
-					info = info[0]
+					info = info[0].text
+								
+				seeds	= line.getchildren()[2].text
+				leeches = line.getchildren()[3].text
 				
-				seeds	= line.getchildren[2].text
-				leeches = line.getchildren[3].text
-				
-				magnet	= line.xpath('.//a[startswith(@href, "magnet:")]')
+				magnet	= line.xpath('.//a[starts-with(@href, "magnet")]')
 				if magnet:
 					magnet = magnet[0].values()[0]
 				######

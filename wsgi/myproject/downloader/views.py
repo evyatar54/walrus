@@ -22,21 +22,23 @@ def index(request):
 	
 	
 def search(request):
-	if request.method == 'POST':			
-		if 'Qs[]' in request.POST:
-			Qs = request.POST.getlist('Qs[]')
-			Results = {}
-			if Qs:
-				t = TPB_Searcher.TPB_Searcher()
-				Results = t.search_queries(Qs)
-				#except:
-				#	err = traceback.format_exc()
-				#	return HttpResponse("search failed:\n" + err)
+	try:
+		if request.method == 'POST':			
+			if 'Qs[]' in request.POST:
+				Qs = request.POST.getlist('Qs[]')
+				Results = {}
+				if Qs:
+					t = TPB_Searcher.TPB_Searcher()
+					Results = t.search_queries(Qs)
+					#except:
+					#	err = traceback.format_exc()
+					#	return HttpResponse("search failed:\n" + err)
+				else:
+					pass
+						
+				return HttpResponse(json.dumps(Results), content_type="application/json")
 			else:
-				pass
-					
-			return HttpResponse(json.dumps(Results), content_type="application/json")
-		else:
-			return HttpResponse('No queries suplied to search')
-			
+				return HttpResponse('No queries suplied to search')
+	except:
+		print(traceback.format_exc())
 	return HttpRepsonse('request method must be POST')
