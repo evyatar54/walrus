@@ -30,9 +30,6 @@ def search(request):
 				if Qs:
 					t = TPB_Searcher.TPB_Searcher()
 					Results = t.search_queries(Qs)
-					#except:
-					#	err = traceback.format_exc()
-					#	return HttpResponse("search failed:\n" + err)
 				else:
 					pass
 						

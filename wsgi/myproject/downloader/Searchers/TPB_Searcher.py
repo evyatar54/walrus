@@ -61,7 +61,7 @@ class TPB_Searcher:
 				torrent.append(leeches)
 				torrent.append(magnet)
 				results.append(torrent)
-			return results
+			return results[:15]
 		else:
 			# There were no results.
 			return {}
