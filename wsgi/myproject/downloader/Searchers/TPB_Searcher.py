@@ -3,6 +3,7 @@
 from lxml import html
 import requests
 import sys, traceback
+import urllib
 
 class TPB_Searcher:
 	
@@ -15,9 +16,12 @@ class TPB_Searcher:
 			result = self.search(query)
 			results[query] = result
 		return results
-	
+
+
 	def search(self, query):
-		page = requests.get(self.TPB_URL + '/search/' + query + '/0/99/0')
+		url_query = urllib.parse.quote(query)
+		page = requests.get(self.TPB_URL + '/search/' + url_query + '/0/99/0')
+		print("got url: ", page.url)
 		tree = html.fromstring(page.text)
 		torrents = self.get_results_from_tree(tree)
 		return torrents		
