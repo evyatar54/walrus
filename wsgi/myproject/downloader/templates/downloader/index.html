@@ -70,14 +70,19 @@
 		</div> 
 	</div>
 	<div class="container result_area" >
-	<button class="btn btn-info pull-right" ng-click="downloadSelected()">Get All Selected</button>
+	
+	<!-- <button class="btn btn-info pull-right" ng-click="downloadSelected()">Get All Selected</button> -->
+	
 		<div class="container" ng-repeat="(key, r) in results">
-			<h2><br> results for: {{key}} </h2>
-			<div style="height:400px;overflow-y:scroll;border-style:groove;" >
+			<br> 
+			<div class="btn" data-toggle="collapse" data-target="#{{key}}" style="width:100%;border-style:groove;"><h2>results for: {{key}}</h2></div>
+			<div id="{{key}}" class="collapse" style="height:400px;overflow-y:scroll;border-style:groove;max-height:400px;" >
 			<table class="table table-striped table-hover" id="result_table">
 				<thead>
 					<tr>
-						<th></th>
+					
+						<!-- <th></th> --> 
+						
 						<th>Name</th>
 						<th>General Info</th>
 						<th>Seeds</th>
@@ -87,7 +92,9 @@
 				</thead>
 				<tbody>
 					<tr class="tr" ng-repeat="line in r track by $index" ng-class="getSelectedClass(line)">
-						<td><input type="checkbox" ng-click="updateSelection($event, key, $index)"></td>
+					
+						<!-- <td><input type="checkbox" ng-click="updateSelection($event, key, $index)"></td> -->
+						
 						<td class="td">{{line[0]}} </td>
 						<td class="td">{{line[1]}} </td>
 						<td class="td">{{line[2]}} </td>
@@ -167,21 +174,18 @@ app.controller('queryCtrl', function($scope) {
 			alert("Failed To Search Queries");
 		});
 	}
+	/*
+	 * functions regarding to multiple choosing and downloading: *
+	
 	$scope.selected = {};
 	$scope.updateSelection = function($event, table, index)
 	{
 		var checkbox = $event.target;
-		var action = (checkbox.checked ? 'add' : 'remove');
-		//alert("checkbox:\n" + checkbox + "\naction: \n" + action + "\ntable: \n" + table + "\nid: \n" + line)
-		//alert(checkbox.checked + ": " + $scope.results[table][line] );
-		//$scope.selected[table][line] = $scope.results[table][line];
-		//alert(checkbox.checked + ": " + $scope.selected[table][line] );
-		
+		var action = (checkbox.checked ? 'add' : 'remove');		
 		if(typeof($scope.selected[table]) === 'undefined')
 		{
 			$scope.selected[table] = [];
 		}
-		
 		if(action == 'add')
 		{
 			$scope.selected[table].push(index);
@@ -192,52 +196,42 @@ app.controller('queryCtrl', function($scope) {
 		}
 		
 	}
-	$scope.idown = "";
 	$scope.downloadSelected = function()
 	{
+		//alert("This service is temporarly unavailable as a result of  
 		var array = [];
 		for (var arr in $scope.selected)
 		{
 			for (var index in $scope.selected[arr])
 			{
-				//document.location.href = $scope.results[arr][index];
 				array.push($scope.results[arr][index][4]);
 			}	
 		}
-		//console.log(JSON.stringify(array));
-		var url;
+		var win;
 		for (var i=0; i<array.length; i++)
 		{
-			//console.log(i);
-			//document.location.href = array[i];
-			//document.getElementById('downloader_iframe').src = array[i];
-			/*
-			url = array[i];
-			if ($scope.idown) 
-			{
-				$scope.idown.attr('src',url);
-			} else 
-			{
-				$scope.idown = $('<iframe>', { id:'idown', src:url }).hide().appendTo('body');
-			}
-			*/
-			window.open(array[i],'_blank');
+			console.log(array[i]);
+			win = window.open(array[i],'download_window'+i);
+			win.close();
 		}
-		//iterrateMagnets(0,array);
-		
 	}
-	/*
-	function iterrateMagnets(index, magnets)
+	function download_magnets(index, magnets)
 	{
-		console.log('index: ' + index + ", magnets length: " + magnets.length);
-		if(index <= magnets.length)
-		{	
-			window.open(magnets[index],'_self');
-			setTimeout(function(){ iterrateMagnets(index+1,magnets); }, 1000);
+		if( i==0 )
+			window.open(array[i],'_self');
+		else
+		{
+			if(confirm("want another one ?"))
+			{
+				window.open(array[i],'_parent');
+			}
+			else
+			{
+				break;
+			}
 		}
-		
 	}
-	*/
+	//################### Until Here #######################*/
 });
 
 
