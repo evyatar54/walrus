@@ -20,10 +20,11 @@ def index(request):
 		traceback.print_exc(file=sys.stdout)
 		return HttpResponse("Error getting index.html, \nsee console log for exception details")
 	
-	
+
+
 def search(request):
 	try:
-		if request.method == 'POST':			
+		if request.method == 'POST':		
 			if 'Qs[]' in request.POST:
 				Qs = request.POST.getlist('Qs[]')
 				Results = {}
