@@ -36,7 +36,7 @@ def search(request):
 						
 				return HttpResponse(json.dumps(Results), content_type="application/json")
 			else:
-				return HttpResponse('No queries suplied to search')
+				return HttpResponse(json.dumps({}), content_type="application/json")
 	except:
 		print(traceback.format_exc())
 	return HttpRepsonse('request method must be POST')
