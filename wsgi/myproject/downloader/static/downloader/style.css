@@ -1,7 +1,25 @@
 
+@font-face 
+{
+	font-family: Geoma;
+	src: url("fonts/GeomaLight.otf") format("opentype");
+}
+
+@font-face 
+{
+	font-family: Geoma;
+	src: url("fonts/GeomaRegular.otf") format("opentype");
+}
+
+@font-face 
+{
+	font-family: AnonymousPro;
+	src: url("fonts/AnonymousPro-Regular.otf") format("opentype");
+}
+
 div.body
 {
-	background-color: #f0f0f0;
+	background-color: #E2DFEE; /*f0f0f0;*/
 	height: 100%;
 	color: grey;
 	overflow: auto;
@@ -9,24 +27,59 @@ div.body
 div.site_header
 {
 	color: white;
-	background-color: #5bc0de;
+	background-color: #7767AD;
+	border-bottom: 1px solid #7767AD;
+	font-family: "GeomaRegular", Geoma;
 }
+
+header
+{
+	font-size: 72px;
+}
+
+div.site_description
+{
+	text-align:right;
+}
+
 
 div.main_app
 {
 	border: 1px;
 	width: 70%;
 }
-
+div.query_div
+{
+	padding-top:10px;
+}
+td.query_cell
+{
+	width: 100%;
+}
+td.query_edit
+{
+	padding: 1px;
+}
+td.query_remove
+{
+	padding: 1px;
+}
 
 div.buttom_toolbar
 {
-	width: 70%;
+	width: 100%;
 }
 
-.input
+input.insert_query
 {
 	width: 90%;
+	height: 2.25em;
+}
+
+input.edit_query
+{
+	width: 100%;
+	height: 2.25em;
 }
 
 div.modal-header
@@ -38,25 +91,29 @@ div.result_header
 {
 	width: 100%;
 	color:black;
-	border: 1px solid #5bc0de;
+	border: 1px solid #7767AD;
 	padding-left: 5px;
 }
 
 div.result_header:hover
 {
-	color: #ff7f27;
+	/*color: red;*/
+	background-color: #E0E0E0;	
 }
 
 div.result_container
 {
 	height:400px;
 	overflow-y:scroll;
-	border: 1px solid #5bc0de;
+	border: 1px solid #7767AD;
 	max-height:400px;
 }
 
-
-
+.myButton
+{
+	background-color: #7767AD;
+	color: white;
+}
 
 
 
