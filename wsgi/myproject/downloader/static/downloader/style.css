@@ -3,18 +3,13 @@
 {
 	font-family: Geoma;
 	src: url("fonts/GeomaLight.otf") format("opentype");
-}
-
-@font-face 
-{
-	font-family: Geoma;
 	src: url("fonts/GeomaRegular.otf") format("opentype");
 }
 
 @font-face 
 {
-	font-family: AnonymousPro;
-	src: url("fonts/AnonymousPro-Regular.otf") format("opentype");
+	font-family: RawengulkSans;
+	src: url("fonts/RawengulkSans-094.otf") format("opentype");
 }
 
 div.body
@@ -70,6 +65,7 @@ div.buttom_toolbar
 	width: 100%;
 }
 
+
 input.insert_query
 {
 	width: 90%;
@@ -80,6 +76,7 @@ input.edit_query
 {
 	width: 100%;
 	height: 2.25em;
+	display:none;
 }
 
 div.modal-header
@@ -90,15 +87,21 @@ div.modal-header
 div.result_header
 {
 	width: 100%;
-	color:black;
+	color: black;
 	border: 1px solid #7767AD;
 	padding-left: 5px;
+	background-color: #f9f9f9;
 }
 
 div.result_header:hover
 {
-	/*color: red;*/
-	background-color: #E0E0E0;	
+	background-color: #f5f5f5;	
+}
+
+h2.result_h2
+{
+	color: #7767AD;
+	font-family: "RawengulkSans-094", RawengulkSans;
 }
 
 div.result_container
@@ -115,6 +118,7 @@ div.result_container
 	color: white;
 }
 
-
-
-
+.myButton:hover
+{
+	color: white;
+}

@@ -28,14 +28,12 @@
 	<br>
 	<div id="main_app" class="container main_app">
 
-		<div class="raw query_area">
+		<div class="query_area">
 			
 			<form novalidate>
-				<div class="col-md-12 raw well">
-					<div class="col-md-12"> 
+				<div class="well" style="white-space: nowrap">
 						<input class="input insert_query" placeholder="Enter Query" type="text" ng-model="query"/> 
 						<button class="btn pull-right myButton" ng-click="ok()"> Add </button>
-					</div>
 				</div>
 			</form>
 			
@@ -48,7 +46,7 @@
 									<div class="query_div">
 										<p id="query_text_{{$index}}">{{x}}<p>
 										<input id="query_input_{{$index}}" class="input edit_query" 
-										ng-blur="submited_query($index)" ng-enter="submited_query($index)" type="text" style="display:none"/>
+										ng-blur="submited_query($index)" ng-enter="submited_query($index)" type="text" />
 									</div>
 								</td>
 								<td class="query_edit">
@@ -72,55 +70,57 @@
 			</button>
 		</div>
 	</div>
-
 	<br>
-	<div class="modal fade" id="myModal" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-				  <h4 class="modal-title">Loading</h4>
-				</div>
-				<div class="modal-body">
-					Please wait while searching for results ...
-				</div>
-			</div>
-		</div> 
-	</div>
-	<div class="container result_area" >
+	<div class="container" id="results">
 	
-	<!-- <button class="btn pull-right" ng-click="downloadSelected()">Get All Selected</button> -->
-	
-		<div class="container" ng-repeat="(key, r) in results" ng-init="parentIndex = $index">
-			<div class="result_header" data-toggle="collapse" data-target="#result_div_{{parentIndex}}"><h2>Results For {{key}}: </h2></div>			
-			<div id="result_div_{{parentIndex}}" class="collapse result_container">
-			<table class="table table-striped table-hover" id="result_table_{{parentIndex}}">
-				<thead>
-					<tr>
-					
-						<!-- <th></th> --> 
+		<div class="modal fade" id="myModal" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+					  <h4 class="modal-title">Loading</h4>
+					</div>
+					<div class="modal-body">
+						Please wait while searching for results ...
+					</div>
+				</div>
+			</div> 
+		</div>
+		<div class="container result_area" >
+		
+		<!-- <button class="btn pull-right" ng-click="downloadSelected()">Get All Selected</button> -->
+		
+			<div class="container" ng-repeat="(key, r) in results" ng-init="parentIndex = $index">
+				<div class="result_header" data-toggle="collapse" data-target="#result_div_{{parentIndex}}"><h2 class="result_h2">Results for "{{key}}": </h2></div>			
+				<div id="result_div_{{parentIndex}}" class="collapse result_container">
+				<table class="table table-striped table-hover" id="result_table_{{parentIndex}}">
+					<thead>
+						<tr>
 						
-						<th>Name</th>
-						<th>General Info</th>
-						<th>Seeds</th>
-						<th>leeches</th>
-						<th>Download</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr class="tr" ng-repeat="line in r track by $index" ng-class="getSelectedClass(line)">
-					
-						<!-- <td><input type="checkbox" ng-click="updateSelection($event, key, $index)"></td> -->
+							<!-- <th></th> --> 
+							
+							<th>Name</th>
+							<th>General Info</th>
+							<th>Seeds</th>
+							<th>leeches</th>
+							<th>Download</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="tr" ng-repeat="line in r track by $index" ng-class="getSelectedClass(line)">
 						
-						<td class="td">{{line[0]}} </td>
-						<td class="td">{{line[1]}} </td>
-						<td class="td">{{line[2]}} </td>
-						<td class="td">{{line[3]}} </td>
-						<td class="td">
-							<a href="{{line[4]}}" class="btn pull-right myButton" title="Magnet Link">Download</a>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+							<!-- <td><input type="checkbox" ng-click="updateSelection($event, key, $index)"></td> -->
+							
+							<td class="td">{{line[0]}} </td>
+							<td class="td">{{line[1]}} </td>
+							<td class="td">{{line[2]}} </td>
+							<td class="td">{{line[3]}} </td>
+							<td class="td">
+								<a href="{{line[4]}}" class="btn pull-right myButton" title="Magnet Link">Download</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -184,6 +184,7 @@ app.controller('queryCtrl', function($scope, $location, $anchorScroll) {
 				$('.collapse').bind('shown.bs.collapse' , goToElement );
 				$('.collapse').bind('hidden.bs.collapse', goToElement );
 				//$('#main_app').hide();
+				goToElementById('results')
 			}
 			else
 			{
@@ -196,9 +197,14 @@ app.controller('queryCtrl', function($scope, $location, $anchorScroll) {
 		});
 	};
 	
-	function goToElement(e)
+	function goToElement(event)
 	{
-		var id = e.currentTarget.id;
+		var id = event.currentTarget.id;
+		goToElementById(id)
+	};
+	
+	function goToElementById(id)
+	{
 		$location.hash(id);
 		$anchorScroll();
 	};
