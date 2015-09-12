@@ -47,7 +47,8 @@
 								<td class ="query_cell">
 									<div class="query_div">
 										<p id="query_text_{{$index}}">{{x}}<p>
-										<input id="query_input_{{$index}}" class="input edit_query" ng-enter="updateQueryContinuation($index)" type="text" style="display:none"/>
+										<input id="query_input_{{$index}}" class="input edit_query" 
+										ng-blur="submited_query($index)" ng-enter="submited_query($index)" type="text" style="display:none"/>
 									</div>
 								</td>
 								<td class="query_edit">
@@ -213,7 +214,7 @@ app.controller('queryCtrl', function($scope, $location, $anchorScroll) {
 		$(label).hide();
 	};
 	
-	$scope.updateQueryContinuation = function(index)
+	$scope.submited_query = function(index)
 	{
 		var input = '#query_input_' + index;
 		var label = '#query_text_'  + index;
