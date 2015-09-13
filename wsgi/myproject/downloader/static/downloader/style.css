@@ -1,3 +1,7 @@
+:root {
+  --main-bg-color: #E2DFEE;
+  --main-color: #7767AD;
+}
 
 @font-face 
 {
@@ -19,24 +23,59 @@ div.body
 	color: grey;
 	overflow: auto;
 }
+
+div.navbar
+{
+	background-color:white;
+	color: #7767AD;
+	left:58%;
+	right:1.25em;
+	
+}
+
+div.div_nav
+{
+	float:right;
+}
+
+ul.nav_ul
+{
+	width:100%;
+}
+
+a.my_a
+{
+	color:#7767AD;
+}
+
 div.site_header
 {
-	color: white;
+	
 	background-color: #7767AD;
 	border-bottom: 1px solid #7767AD;
 	font-family: "GeomaRegular", Geoma;
 }
-
-header
+table.site_header
 {
-	font-size: 72px;
+	color: white;
 }
 
-div.site_description
+td.site_header
 {
 	text-align:right;
 }
 
+header
+{
+	font-size: 5em;
+}
+
+td.site_description
+{
+	width:100%;
+	font-size: 1.5em;
+	text-align:right;
+}
 
 div.main_app
 {

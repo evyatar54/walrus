@@ -1,7 +1,6 @@
 {% load staticfiles %}
 <head>
 	<title>Toorrents</title>
-	<link rel="stylesheet" type="text/css" href="{% static 'downloader/style.css' %}" />
 	<link rel="shortcut icon" href="{% static 'downloader/favicon.ico' %}" />
 
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -12,18 +11,37 @@
 
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
 
+	<link rel="stylesheet" type="text/css3" href="{% static 'downloader/style.css' %}" />
 </head>
 
 {% verbatim %}
 <div class="body" ng-app="myApp" ng-controller="queryCtrl">
+	
+	
+	<div class="navbar navbar-fixed-top my-nav">
+	  <div class="container-fluid div_nav">
+		  <ul class="nav navbar-nav nav_ul">
+			<li><a class="my_a">Scroll Top</a></li>
+			<li><a class="my_a">About us</a></li>
+			<li><a class="my_a">Choose Search Engines</a></li>
+			<li><a class="my_a">Start New Search</a></li>
+		  </ul>
+	  </div>
+	</div>
+	
+	<div class="jumbotron site_header">
 
-	<div class="jumbotron well row site_header">
-		<div class="col-md-4">
-			<header> Toorrents </header>
-		</div>
-		<div class="col-md-8 site_description">
-			<p class="description"><br><br><br> search multiple queries simultaneously over multiple search engines </p>
-		</div>
+		<table class="site_header">
+			<tr>
+				<td class="site_header">
+					<header> Toorrents </header>
+				</td>
+				<td class="site_description">
+					<br>search multiple queries simultaneously over multiple search engines
+				</td>
+			</tr>
+		</table>
+		
 	</div>
 	<br>
 	<div id="main_app" class="container main_app">
