@@ -28,8 +28,8 @@ div.navbar
 {
 	background-color:white;
 	color: #7767AD;
-	left:25%;
-	width:50%;
+	left:15%;
+	width:65%;
 	right:1.25em;
 	
 	
@@ -37,7 +37,7 @@ div.navbar
 
 div.div_nav
 {
-	float:inner;
+	width:80%;
 }
 
 ul.nav_ul
@@ -50,6 +50,7 @@ a.my_a
 	color:#7767AD;
 	font-size: 1em;
 }
+
 
 div.site_header
 {
