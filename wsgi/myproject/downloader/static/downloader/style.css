@@ -22,42 +22,18 @@ div.body
 	height: 100%;
 	color: grey;
 	overflow: auto;
-}
-
-div.navbar
-{
-	background-color:white;
-	color: #7767AD;
-	left:15%;
-	width:65%;
-	right:1.25em;
 	
-	
+    width: 100%;
+    margin: 0;
 }
-
-div.div_nav
-{
-	width:80%;
-}
-
-ul.nav_ul
-{
-	width:100%;
-}
-
-a.my_a
-{
-	color:#7767AD;
-	font-size: 1em;
-}
-
 
 div.site_header
-{
-	
+{	
+	margin-bottom: 0px;
 	background-color: #7767AD;
-	border-bottom: 1px solid #7767AD;
 	font-family: "GeomaRegular", Geoma;
+	padding-left:1em;
+	padding-right:1em;
 }
 table.site_header
 {
@@ -80,6 +56,52 @@ td.site_description
 	font-size: 1.5em;
 	text-align:right;
 }
+
+/* nav bar: */
+
+
+div.my_nav
+{
+	background-color: transparent;
+	border-bottom: transparent;
+	width:53em;
+	margin: 0 auto;
+	
+}
+
+div.div_nav
+{
+    height: 100%;
+    position: absolute;
+    top: 0;
+}
+
+ul.nav_ul
+{
+	width:100%;
+	
+}
+
+button.nav_button
+{
+	color: #7767AD;
+	font-size: 1em;
+	background-color: white;
+	height: 100%;
+	border-radius:0px;
+	text-align: center;
+	width:12.5em
+}
+
+button.nav_button:hover
+{
+	background-color: #f0f0f0;
+	color: #7767AD;
+}
+
+
+/*  end navbar */
+
 
 div.main_app
 {
