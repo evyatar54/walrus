@@ -64,9 +64,11 @@ div.my_nav
 {
 	background-color: transparent;
 	border-bottom: transparent;
-	width:53em;
-	margin: 0 auto;
 	
+	width:100%;
+	
+	width: 53em;
+	margin:0 auto;
 }
 
 div.div_nav
@@ -74,8 +76,13 @@ div.div_nav
     height: 100%;
     position: absolute;
     top: 0;
+	width:100%;
+	
 }
 
+div.nav_buttons_div
+{
+}
 ul.nav_ul
 {
 	width:100%;
@@ -85,12 +92,16 @@ ul.nav_ul
 button.nav_button
 {
 	color: #7767AD;
+	_color: white;
 	font-size: 1em;
 	background-color: white;
+	_background-color: #777;
 	height: 100%;
 	border-radius:0px;
 	text-align: center;
-	width:12.5em
+	width:12.5em;
+	border-color: transparent #7767AD black #7767AD;
+	
 }
 
 button.nav_button:hover
