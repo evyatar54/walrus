@@ -15,49 +15,33 @@
 </head>
 
 {% verbatim %}
-<div class="body" ng-app="myApp" ng-controller="queryCtrl">
+<div class="_body" ng-app="myApp" ng-controller="queryCtrl">
 	
-	
-	<div class="jumbotron site_header">
-
-		<table class="site_header">
-			<tr>
-				<td class="site_header">
-					<header> Toorrents </header>
-				</td>
-				<td class="site_description">
-					<br><br><br>search multiple queries simultaneously over multiple search engines
-				</td>
-			</tr>
-		</table>
-		
+	<div class="container site_header">
+	  <div class="page-header">
+		<header>Toorrents</header>      
+	  </div>
+	  <description> search multiple queries simultaneously over multiple search engines </description>
 	</div>
 	
-	
-	<div id="sticky-anchor"></div>
-	<div style="background-color:white; width:100%;">
-	<div id="sticky-div" class="navbar navbar-default navbar-static-top my_nav">
-		<div class="container-fluid div_nav">
-			<div class="navbar-header" style="background-color:white; padding-left: 1em; position:fixed; right:2.3em">
-				<button type="button" class="navbar-toggle" 
-										data-toggle="collapse" data-target="#myNavbar" >
-										
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-			</div>
-			<div class="collapse navbar-collapse nav_buttons_div" id="myNavbar">
-				<ul class="nav navbar-nav">
-					<li><button class="btn nav_button">Choose Search Engines</button></li>
-					<li><button class="btn nav_button">Start New Search</button></li>
-					<li><button class="btn nav_button">Scroll Top</button></li>
-					<li><button class="btn nav_button">About us</button></li>
-				</ul>
-			</div>
+	<div class="container select-engines">
+		<div class="select-engines-button">
+			<button class="btn myButton" data-toggle="collapse" data-target="#select-engines">
+				Select Search Engines
+			</button>
+		</div>
+		<div id="select-engines" class="collapse select-engines-body">
+            <div class="engines-block">
+                <label class="checkbox-inline search-engine-holder"
+                                    ng-repeat="e in engines track by $index">
+                    <input type="checkbox" value="" >
+                        {{e}}
+                    </input>
+                </label>
+            </div>
 		</div>
 	</div>
-	</div>
+
 	<br>
 	<div id="main_app" class="container main_app">
 
@@ -169,6 +153,7 @@ var app = angular.module('myApp', [], function ($compileProvider) {
   
 });
 app.controller('queryCtrl', function($scope, $location, $anchorScroll) {
+	$scope.engines = ['The Pirate Bay', 'w'];
 	$scope.queries = new Array();
 	$scope.results = new Array();
 	$scope.wow = ""
@@ -291,7 +276,7 @@ app.controller('queryCtrl', function($scope, $location, $anchorScroll) {
 	}
 	$scope.downloadSelected = function()
 	{
-		//alert("This service is temporarly unavailable as a result of  
+		//alert("This service is temporarily unavailable as a result of  
 		var array = [];
 		for (var arr in $scope.selected)
 		{
@@ -340,22 +325,26 @@ app.controller('queryCtrl', function($scope, $location, $anchorScroll) {
         };
     });
 
-	
+/*	
 $(document).ready(function() {
-    $('div.body').scroll(function() {
+    $('div.body').scrolll(function() {
 		console.log($('#sticky-div').offset());
         if ($('#sticky-anchor').offset().top <= 0)
         {
-			//$('#sticky-div').removeClass('navbar-static-top');
+			$('#sticky-div').removeClass('my_nav');
+			$('#sticky-div').removeClass('navbar-static-top');
             $('#sticky-div').addClass('navbar-fixed-top');
+			//$('#sticky-div').addClass('_my_nav');
         }
         else
         {
-            $//('#sticky-div').addClass('navbar-static-top');
 			$('#sticky-div').removeClass('navbar-fixed-top');
+            $('#sticky-div').addClass('navbar-static-top');
+			$('#sticky-div').addClass('my_nav');
         }
     });
 	
 });
+//*/
 </script>
 

@@ -1,117 +1,55 @@
-:root {
-  --main-bg-color: #E2DFEE;
-  --main-color: #7767AD;
-}
 
-@font-face 
-{
-	font-family: Geoma;
-	src: url("fonts/GeomaLight.otf") format("opentype");
-	src: url("fonts/GeomaRegular.otf") format("opentype");
-}
 
-@font-face 
+div._body
 {
-	font-family: RawengulkSans;
-	src: url("fonts/RawengulkSans-094.otf") format("opentype");
-}
-
-div.body
-{
-	background-color: #E2DFEE; /*f0f0f0;*/
+	background-color: #E2DFEE;
 	height: 100%;
-	color: grey;
 	overflow: auto;
-	
-    width: 100%;
-    margin: 0;
 }
+
 
 div.site_header
-{	
-	margin-bottom: 0px;
+{
 	background-color: #7767AD;
 	font-family: "GeomaRegular", Geoma;
-	padding-left:1em;
-	padding-right:1em;
-}
-table.site_header
-{
 	color: white;
+	width: 100%;
+	padding-bottom:5px;
 }
-
-td.site_header
-{
-	text-align:right;
-}
-
 header
 {
 	font-size: 5em;
 }
 
-td.site_description
+description
 {
-	width:100%;
 	font-size: 1.5em;
-	text-align:right;
 }
 
-/* nav bar: */
-
-
-div.my_nav
+div.select-engines-button
 {
-	background-color: transparent;
-	border-bottom: transparent;
-	
-	width:100%;
-	
-	width: 53em;
-	margin:0 auto;
+	width: 200px;
+	margin: 0 auto;
+	padding: 10px;
 }
 
-div.div_nav
+div.select-engines-body
 {
-    height: 100%;
-    position: absolute;
-    top: 0;
-	width:100%;
-	
+	background-color:white;
+	margin: 0 auto;
+	padding: 10px; 
+	border: 1px solid #7767AD;
 }
 
-div.nav_buttons_div
+div.engines-block
 {
+	display:table;
 }
-ul.nav_ul
+
+label.search-engine-holder
 {
-	width:100%;
-	
+	width : 12.5em;
 }
-
-button.nav_button
-{
-	color: #7767AD;
-	_color: white;
-	font-size: 1em;
-	background-color: white;
-	_background-color: #888;
-	height: 100%;
-	border-radius:0px;
-	text-align: center;
-	width:12.5em;
-	border-color: transparent #7767AD black #7767AD;
-	
-}
-
-button.nav_button:hover
-{
-	background-color: #f0f0f0;
-	color: #7767AD;
-}
-
-
-/*  end navbar */
 
 
 div.main_app
@@ -197,4 +135,18 @@ div.result_container
 .myButton:hover
 {
 	color: white;
+}
+
+
+@font-face 
+{
+	font-family: Geoma;
+	src: url("fonts/GeomaLight.otf") format("opentype");
+	src: url("fonts/GeomaRegular.otf") format("opentype");
+}
+
+@font-face 
+{
+	font-family: RawengulkSans;
+	src: url("fonts/RawengulkSans-094.otf") format("opentype");
 }
