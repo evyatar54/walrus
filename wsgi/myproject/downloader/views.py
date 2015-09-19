@@ -10,9 +10,10 @@ from django.template.context_processors import csrf
 import sys, traceback
 import json
 from .Searchers import TPB_Searcher
+from .Searchers import Kickass_Searcher
 
 def index(request):
-	
+
 	try:
 		a = render(request, 'downloader/index.html' )
 		return a
@@ -29,7 +30,7 @@ def search(request):
 				Qs = request.POST.getlist('Qs[]')
 				Results = {}
 				if Qs:
-					t = TPB_Searcher.TPB_Searcher()
+					t = Kickass_Searcher.Kickass_Searcher()#TPB_Searcher.TPB_Searcher()
 					Results = t.search_queries(Qs)
 				else:
 					pass
