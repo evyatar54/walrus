@@ -26,10 +26,16 @@ def search(request):
     try:
         if request.method == 'POST':
             if 'Qs[]' in request.POST:
+
+                engine = "Default"
+                if 'Engine' in request.POST:
+                    engine = request.POST["Engine"]
+
                 Qs = request.POST.getlist('Qs[]')
                 Results = {}
                 if Qs:
-                    t = Kickass_Searcher.Kickass_Searcher()#TPB_Searcher.TPB_Searcher()
+                    t = getSearcherByEngine(engine)
+                    # ### t = Kickass_Searcher.Kickass_Searcher()#TPB_Searcher.TPB_Searcher()
                     Results = t.search_queries(Qs)
                 else:
                     pass
@@ -40,3 +46,14 @@ def search(request):
         print(traceback.format_exc())
 
     return HttpRepsonse('request method must be POST')
+
+
+def getSearcherByEngine(engine):
+    if engine == "Default":
+        return TPB_Searcher.TPB_Searcher()
+    if engine == "The Pirate Bay":
+        return TPB_Searcher.TPB_Searcher()
+    elif engine == "Kickass Torrents":
+        return Kickass_Searcher.Kickass_Searcher()
+    else:
+        return TPB_Searcher.TPB_Searcher()

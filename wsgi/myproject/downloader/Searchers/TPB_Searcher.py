@@ -23,7 +23,7 @@ class TPB_Searcher:
 			#results[query] = result
 		for t in thread_pull:
 			t.join()
-		return results
+		return {"The Pirate Bay": results}
 
 
 def search(URL, query, result_dict):
@@ -33,8 +33,8 @@ def search(URL, query, result_dict):
 	tree = html.fromstring(page.text)
 	torrents = get_results_from_tree(tree)
 	result_dict[query] = torrents
-	#return torrents		
-	
+	#return torrents
+
 def get_results_from_tree(tree):
 	searchResult = tree.xpath('//table[@id="searchResult"]')
 	#if found 

@@ -113,40 +113,45 @@
 		<div class="container result_area" >
 		
 		<!-- <button class="btn pull-right" ng-click="downloadSelected()">Get All Selected</button> -->
-		
-			<div class="container" ng-repeat="(key, r) in results" ng-init="parentIndex = $index">
-				<div class="result_header" data-toggle="collapse" data-target="#result_div_{{parentIndex}}"><h2 class="result_h2">Results for "{{key}}": </h2></div>			
-				<div id="result_div_{{parentIndex}}" class="collapse scrollToCollapsee result_container">
-				<table class="table table-striped table-hover" id="result_table_{{parentIndex}}">
-					<thead>
-						<tr>
-						
-							<!-- <th></th> --> 
-							
-							<th>Name</th>
-							<th>General Info</th>
-							<th>Seeds</th>
-							<th>leeches</th>
-							<th>Download</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr class="tr" ng-repeat="line in r track by $index" ng-class="getSelectedClass(line)">
-						
-							<!-- <td><input type="checkbox" ng-click="updateSelection($event, key, $index)"></td> -->
-							
-							<td class="td">{{line[0]}} </td>
-							<td class="td">{{line[1]}} </td>
-							<td class="td">{{line[2]}} </td>
-							<td class="td">{{line[3]}} </td>
-							<td class="td">
-								<a href="{{line[4]}}" class="btn _pull-right myButton" title="Magnet Link">Download</a>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				</div>
-			</div>
+            <div ng-repeat="(e,n) in engines">
+                <div class="container" ng-repeat="(key, r) in results[e]" ng-init="parentIndex = $index;">
+
+                    <div class="result_header" data-toggle="collapse" data-target="#result_div_{{parentIndex}}">
+                        <h2 class="result_h2">Results for "{{key}}": </h2>
+                    </div>
+
+                    <div id="result_div_{{parentIndex}}" class="collapse scrollToCollapsee result_container">
+                    <table class="table table-striped table-hover" id="result_table_{{parentIndex}}">
+                        <thead>
+                            <tr>
+
+                                <!-- <th></th> -->
+
+                                <th>Name</th>
+                                <th>General Info</th>
+                                <th>Seeds</th>
+                                <th>leeches</th>
+                                <th>Download</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="tr" ng-repeat="line in r track by $index" ng-class="getSelectedClass(line)">
+
+                                <!-- <td><input type="checkbox" ng-click="updateSelection($event, key, $index)"></td> -->
+
+                                <td class="td">{{line[0]}} </td>
+                                <td class="td">{{line[1]}} </td>
+                                <td class="td">{{line[2]}} </td>
+                                <td class="td">{{line[3]}} </td>
+                                <td class="td">
+                                    <a href="{{line[4]}}" class="btn _pull-right myButton" title="Magnet Link">Download</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+            </div>
 		</div>
 	</div>
 	<br>
@@ -161,9 +166,9 @@ var app = angular.module('myApp', [], function ($compileProvider) {
   
 });
 app.controller('queryCtrl', function($scope, $location, $anchorScroll) {
-    $scope.engines = {'The Pirate Bay':1, 'KickassTorrents':1};
+    $scope.engines = {'The Pirate Bay':1, 'Kickass Torrents':1};
     $scope.queries = new Array();
-    $scope.results = new Array();
+    $scope.results = {};
 
     $scope.ok = function()
 	{
@@ -195,15 +200,16 @@ app.controller('queryCtrl', function($scope, $location, $anchorScroll) {
         var handler500 = function() { alert("500: Internal Server Error"); };
 		var data = {"csrfmiddlewaretoken": "{{ csrf_token }}", state:"inactive", "Qs": Qs, "Engine": ""};
 
-        /*
+        //*
         for (var key in $scope.engines)
         {
             //console.log(key);
             data["Engine"] = key;
-            console.log(data)
+            //console.log(data)
+            searchQueries(_url, data);
         }
-        */
-        searchQueries(_url, data);
+        //*/
+        //searchQueries(_url, data);
     };
 
     function searchQueries(_url, data)
@@ -216,8 +222,9 @@ app.controller('queryCtrl', function($scope, $location, $anchorScroll) {
 			{
 				//alert(JSON.stringify(response));
 				$scope.$apply(function() {
-					$scope.results = [];
-					$scope.results = response;
+                    console.log("key: " + Object.keys(response))
+					$scope.results[Object.keys(response)[0]] = [];
+					$scope.results[Object.keys(response)[0]] = response[Object.keys(response)[0]];
 				});
 				$('.scrollToCollapsee').unbind('shown.bs.collapse' , goToElement );
 				$('.scrollToCollapsee').unbind('hidden.bs.collapse', goToElement );
