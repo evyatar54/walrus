@@ -12,32 +12,31 @@ import json
 from .Searchers import TPB_Searcher
 from .Searchers import Kickass_Searcher
 
-def index(request):
 
-	try:
-		a = render(request, 'downloader/index.html' )
-		return a
-	except:
-		traceback.print_exc(file=sys.stdout)
-		return HttpResponse("Error getting index.html, \nsee console log for exception details")
-	
+def index(request):
+    try:
+        a = render(request, 'downloader/index.html' )
+        return a
+    except:
+        traceback.print_exc(file=sys.stdout)
+        return HttpResponse("Error getting index.html, \nsee console log for exception details")
 
 
 def search(request):
-	try:
-		if request.method == 'POST':		
-			if 'Qs[]' in request.POST:
-				Qs = request.POST.getlist('Qs[]')
-				Results = {}
-				if Qs:
-					t = Kickass_Searcher.Kickass_Searcher()#TPB_Searcher.TPB_Searcher()
-					Results = t.search_queries(Qs)
-				else:
-					pass
-						
-				return HttpResponse(json.dumps(Results), content_type="application/json")
-			else:
-				return HttpResponse(json.dumps({}), content_type="application/json")
-	except:
-		print(traceback.format_exc())
-	return HttpRepsonse('request method must be POST')
+    try:
+        if request.method == 'POST':
+            if 'Qs[]' in request.POST:
+                Qs = request.POST.getlist('Qs[]')
+                Results = {}
+                if Qs:
+                    t = Kickass_Searcher.Kickass_Searcher()#TPB_Searcher.TPB_Searcher()
+                    Results = t.search_queries(Qs)
+                else:
+                    pass
+                return HttpResponse(json.dumps(Results), content_type="application/json")
+        else:
+            return HttpResponse(json.dumps({}), content_type="application/json")
+    except:
+        print(traceback.format_exc())
+
+    return HttpRepsonse('request method must be POST')

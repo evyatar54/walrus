@@ -93,7 +93,7 @@
             <li ng-repeat="(e,val) in engines"> <a href="#" ng-click="" p="//show('#m1');">{{e}}</a> </li>
         </ul>
 
-    </div>
+    </_div>
 
 
 	<div class="container" id="results">
@@ -140,7 +140,7 @@
 							<td class="td">{{line[2]}} </td>
 							<td class="td">{{line[3]}} </td>
 							<td class="td">
-								<a href="{{line[4]}}" class="btn pull-right myButton" title="Magnet Link">Download</a>
+								<a href="{{line[4]}}" class="btn _pull-right myButton" title="Magnet Link">Download</a>
 							</td>
 						</tr>
 					</tbody>
@@ -161,11 +161,11 @@ var app = angular.module('myApp', [], function ($compileProvider) {
   
 });
 app.controller('queryCtrl', function($scope, $location, $anchorScroll) {
-	$scope.engines = {'The Pirate Bay':1, 'KickassTorrents':1};
-	$scope.queries = new Array();
-	$scope.results = new Array();
-	$scope.wow = ""
-    $scope.ok = function() 
+    $scope.engines = {'The Pirate Bay':1, 'KickassTorrents':1};
+    $scope.queries = new Array();
+    $scope.results = new Array();
+
+    $scope.ok = function()
 	{
 		if(!$scope.query)
 			alert("Query must be non empty.\ngot: " + $scope.query);
@@ -192,17 +192,30 @@ app.controller('queryCtrl', function($scope, $location, $anchorScroll) {
 		$('#myModal').modal({backdrop: 'static', keyboard: false});
 		$('#myModal').modal('show');
 		var _url = "{% url 'search' %}";
-		var handler500 = function() { alert("500: Internal Server Error"); };
+        var handler500 = function() { alert("500: Internal Server Error"); };
+		var data = {"csrfmiddlewaretoken": "{{ csrf_token }}", state:"inactive", "Qs": Qs, "Engine": ""};
 
-		data = {"csrfmiddlewaretoken": "{{ csrf_token }}", state:"inactive", "Qs": Qs};
-		$.post(_url, data).done(function(response)
+        /*
+        for (var key in $scope.engines)
+        {
+            //console.log(key);
+            data["Engine"] = key;
+            console.log(data)
+        }
+        */
+        searchQueries(_url, data);
+    };
+
+    function searchQueries(_url, data)
+    {
+        $.post(_url, data).done(function(response)
 		{
 			$('#myModal').modal('hide');
 			//alert(response);
 			if(response)
 			{
 				//alert(JSON.stringify(response));
-				$scope.$apply(function() { 
+				$scope.$apply(function() {
 					$scope.results = [];
 					$scope.results = response;
 				});
@@ -222,8 +235,8 @@ app.controller('queryCtrl', function($scope, $location, $anchorScroll) {
 			$('#myModal').modal('hide');
 			alert("Failed To Search Queries");
 		});
-	};
-	
+    }
+
 	function goToElement(event)
 	{
 		var id = event.currentTarget.id;
@@ -263,13 +276,9 @@ app.controller('queryCtrl', function($scope, $location, $anchorScroll) {
     $scope.selectEngine = function(key)
     {
         $scope.engines[key] = 1 - $scope.engines[key];
-        //$scope.printSelectedEngines();
     }
 
-    $scope.printSelectedEngines = function()
-    {
-        alert(JSON.stringify($scope.engines));
-    }
+
 
 
 	/*
