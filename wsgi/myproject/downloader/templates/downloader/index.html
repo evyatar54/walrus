@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 {% load staticfiles %}
 <head>
 	<title>Toorrents</title>
@@ -11,7 +12,7 @@
 
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
 
-	<link rel="stylesheet" type="text/css3" href="{% static 'downloader/style.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'downloader/style.css' %}" />
 </head>
 
 {% verbatim %}
@@ -25,7 +26,7 @@
 	</div>
 	
 	<div class="container select-engines">
-		<div class="select-engines-button">
+		<div class="select-engines-button ">
 			<button class="btn myButton" data-toggle="collapse" data-target="#select-engines">
 				Select Search Engines
 			</button>
@@ -91,12 +92,13 @@
     <!--
     <div class="engines-tabs" _style="background-color: white">
         <ul class="nav nav-tabs">
-            <li ng-repeat="(e,val) in engines"> <a href="#" ng-click="" p="//show('#m1');">{{val["name"]}}</a> </li>
+                <li ng-repeat="(e,val) in engines" ng-click="" p="//show('#m1');">
+                    {{val["name"]}}
+                </li>
         </ul>
 
     </div>
-    -->
-
+-->
 	<div class="container" id="results">
 	
 		<div class="modal fade" id="myModal" role="dialog">
@@ -141,11 +143,11 @@
 
                                 <!-- <td><input type="checkbox" ng-click="updateSelection($event, key, $index)"></td> -->
 
-                                <td class="td">{{line[0]}} </td>
-                                <td class="td">{{line[1]}} </td>
-                                <td class="td">{{line[2]}} </td>
-                                <td class="td">{{line[3]}} </td>
-                                <td class="td">
+                                <td class="td td-responsive">{{line[0]}} </td>
+                                <td class="td td-responsive">{{line[1]}} </td>
+                                <td class="td td-responsive">{{line[2]}} </td>
+                                <td class="td td-responsive">{{line[3]}} </td>
+                                <td class="td td-responsive">
                                     <a href="{{line[4]}}" class="btn _pull-right myButton" title="Magnet Link">Download</a>
                                 </td>
                             </tr>

@@ -48,7 +48,7 @@ div.engines-block
 
 label.search-engine-holder
 {
-	width : 12.5em;
+	width: 12.5em;
 }
 
 
@@ -93,6 +93,12 @@ input.edit_query
 	display:none;
 }
 
+td.td-responsive
+{
+    word-wrap:break-word;
+    word-break:break-word;
+}
+
 div.modal-header
 {
 	height: 40px;
@@ -120,7 +126,7 @@ h2.result_h2
 
 div.result_container
 {
-	height:400px;
+	_height:400px;
 	overflow-y:scroll;
 	border: 1px solid #7767AD;
 	max-height:400px;
