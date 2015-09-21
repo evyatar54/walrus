@@ -23,7 +23,7 @@ class TPB_Searcher:
 			#results[query] = result
 		for t in thread_pull:
 			t.join()
-		return {"The Pirate Bay": results}
+		return {"ThePirateBay": results}
 
 
 def search(URL, query, result_dict):

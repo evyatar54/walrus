@@ -51,9 +51,9 @@ def search(request):
 def getSearcherByEngine(engine):
     if engine == "Default":
         return TPB_Searcher.TPB_Searcher()
-    if engine == "The Pirate Bay":
+    if engine == "ThePirateBay":
         return TPB_Searcher.TPB_Searcher()
-    elif engine == "Kickass Torrents":
+    elif engine == "KickassTorrents":
         return Kickass_Searcher.Kickass_Searcher()
     else:
         return TPB_Searcher.TPB_Searcher()

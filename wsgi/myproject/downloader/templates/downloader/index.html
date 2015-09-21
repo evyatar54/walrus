@@ -33,9 +33,9 @@
 		<div id="select-engines" class="collapse select-engines-body">
             <div class="engines-block">
                 <label class="checkbox-inline search-engine-holder"
-                                    ng-repeat="(e, val) in engines track by $index">
+                                    ng-repeat="(e, val) in engines">
                     <input type="checkbox" value="" ng-click="selectEngine(e);" checked>
-                        {{e}}
+                        {{val["name"]}}
                     </input>
                 </label>
             </div>
@@ -88,13 +88,14 @@
 	</div>
 	<br>
 
-    <div class="select-engines-body" style="background-color: white">
+    <!--
+    <div class="engines-tabs" _style="background-color: white">
         <ul class="nav nav-tabs">
-            <li ng-repeat="(e,val) in engines"> <a href="#" ng-click="" p="//show('#m1');">{{e}}</a> </li>
+            <li ng-repeat="(e,val) in engines"> <a href="#" ng-click="" p="//show('#m1');">{{val["name"]}}</a> </li>
         </ul>
 
-    </_div>
-
+    </div>
+    -->
 
 	<div class="container" id="results">
 	
@@ -113,14 +114,15 @@
 		<div class="container result_area" >
 		
 		<!-- <button class="btn pull-right" ng-click="downloadSelected()">Get All Selected</button> -->
+
             <div ng-repeat="(e,n) in engines">
                 <div class="container" ng-repeat="(key, r) in results[e]" ng-init="parentIndex = $index;">
 
-                    <div class="result_header" data-toggle="collapse" data-target="#result_div_{{parentIndex}}">
-                        <h2 class="result_h2">Results for "{{key}}": </h2>
+                    <div class="result_header" data-toggle="collapse" data-target="#{{e}}_result_div_{{parentIndex}}">
+                        <h2 class="result_h2">{{n["name"]}}'s Results for "{{key}}": </h2>
                     </div>
 
-                    <div id="result_div_{{parentIndex}}" class="collapse scrollToCollapsee result_container">
+                    <div id="{{e}}_result_div_{{parentIndex}}" class="collapse scrollToCollapsee result_container">
                     <table class="table table-striped table-hover" id="result_table_{{parentIndex}}">
                         <thead>
                             <tr>
@@ -166,7 +168,7 @@ var app = angular.module('myApp', [], function ($compileProvider) {
   
 });
 app.controller('queryCtrl', function($scope, $location, $anchorScroll) {
-    $scope.engines = {'The Pirate Bay':1, 'Kickass Torrents':1};
+    $scope.engines = {'ThePirateBay':{"active":1, "name": 'The Pirate Bay'}, 'KickassTorrents':{"active":1, "name": 'Kickass Torrents'}};
     $scope.queries = new Array();
     $scope.results = {};
 
@@ -282,7 +284,7 @@ app.controller('queryCtrl', function($scope, $location, $anchorScroll) {
 
     $scope.selectEngine = function(key)
     {
-        $scope.engines[key] = 1 - $scope.engines[key];
+        $scope.engines[key]['active'] = 1 - $scope.engines[key]['active'];
     }
 
 
