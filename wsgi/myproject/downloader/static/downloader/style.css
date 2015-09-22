@@ -1,4 +1,8 @@
 
+html,body
+{
+    height: 100%;
+}
 
 div._body
 {
@@ -103,6 +107,12 @@ div.modal-header
 {
 	height: 40px;
 }
+
+.nav-tabs
+{
+    border-color:white;
+}
+
 
 div.result_header
 {
