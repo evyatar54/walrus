@@ -40,11 +40,11 @@ def search(request):
                 else:
                     pass
                 return HttpResponse(json.dumps(Results), content_type="application/json")
+            return HttpResponse(json.dumps({}), content_type="application/json")
         else:
             return HttpResponse(json.dumps({}), content_type="application/json")
     except:
         print(traceback.format_exc())
-
     return HttpRepsonse('request method must be POST')
 
 

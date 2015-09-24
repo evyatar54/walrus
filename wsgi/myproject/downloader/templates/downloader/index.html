@@ -108,20 +108,22 @@
 
          <div class="engines-tabs" _style="background-color: white">
             <ul id="myTab" class="nav nav-tabs">
-                    <li ng-repeat='(e,val) in engines | active_only' data-toggle="tab" ng-class="{active:$first}" ng-click="">
-                        <a href="#tab_{{e}}">{{val["name"]}}</a>
+                    <li ng-repeat='(e,val) in engines | active_only' ng-class="{active:$first}">
+                        <a id="ref_{{e}}" ng-click="showMyDiv(e)" style="color: #7767AD;">{{val["name"]}}</a>
                     </li>
             </ul>
         </div>
 
 		<!-- <button class="btn pull-right" ng-click="downloadSelected()">Get All Selected</button> -->
             <div class="tab-content">
-
-                <div ng-repeat="(e,n) in engines ">
-                    <div ng-class="in active" class="container tab-pane fade" id="tab_{{e}}" ng-repeat="(key, r) in results[e]" ng-init="parentIndex = $index;">
+                <div id="tab_ResultsPlaceHolder" class="container">
+                    Please search for what you seek before you ask for results ...
+                </div>
+                <div ng-repeat="(e,n) in engines " style="display:none;" class="fade" id="tab_{{e}}">
+                    <div  class="container" ng-repeat="(key, r) in results[e]" ng-init="parentIndex = $index;">
 
                         <div class="result_header" data-toggle="collapse" data-target="#{{e}}_result_div_{{parentIndex}}">
-                            <h2 class="result_h2">{{n["name"]}}'s Results for "{{key}}": </h2>
+                            <h2 class="result_h2">Results for "{{key}}": </h2>
                         </div>
 
                         <div id="{{e}}_result_div_{{parentIndex}}" class="collapse scrollToCollapsee result_container">
@@ -172,14 +174,14 @@ var app = angular.module('myApp', [], function ($compileProvider) {
   
 });
 app.controller('queryCtrl', function($scope, $location, $anchorScroll) {
-    $scope.engines = {'ThePirateBay':{"active":1, "name": 'The Pirate Bay'}, 'KickassTorrents':{"active":1, "name": 'Kickass Torrents'}};
+    $scope.engines = { 'KickassTorrents':{"active":1, "name": 'Kickass Torrents'}, 'ThePirateBay':{"active":1, "name": 'The Pirate Bay'}};
     $scope.queries = new Array();
     $scope.results = {};
 
     $scope.ok = function()
 	{
 		if(!$scope.query)
-			alert("Query must be non empty.\ngot: " + $scope.query);
+			alert("Please enter a non empty query into the list");
 		else
 		{
 			$scope.queries.push(angular.copy($scope.query));
@@ -198,11 +200,14 @@ app.controller('queryCtrl', function($scope, $location, $anchorScroll) {
 		$scope.queries = new Array();
 	};
 	
-	$scope.go = function(Qs)
-	{	
-		$('#myModal').modal({backdrop: 'static', keyboard: false});
+	$scope.go = function(Qs) {
+        if (!Qs)
+        {
+            alert('Please enter some queries into the list')
+        }
+        $('#myModal').modal({backdrop: 'static', keyboard: false});
 		$('#myModal').modal('show');
-		var _url = "{% url 'search' %}";
+        var _url = "{% url 'search' %}";
         var handler500 = function() { alert("500: Internal Server Error"); };
 		var data = {"csrfmiddlewaretoken": "{{ csrf_token }}", state:"inactive", "Qs": Qs, "Engine": ""};
 
@@ -239,6 +244,10 @@ app.controller('queryCtrl', function($scope, $location, $anchorScroll) {
 				$('.scrollToCollapsee').bind('hidden.bs.collapse', goToElement );
 				//$('#main_app').hide();
 				goToElementById('results')
+
+//                $scope.showMyDiv(data.Engine);
+//                console.log('#ref_' + data.Engine);
+                $('#ref_' + data.Engine).trigger('click');
 			}
 			else
 			{
@@ -292,7 +301,21 @@ app.controller('queryCtrl', function($scope, $location, $anchorScroll) {
         $scope.engines[key]['active'] = 1 - $scope.engines[key]['active'];
     }
 
+    $scope.currShownDiv = "ResultsPlaceHolder";
+    $scope.showMyDiv = function(engine) {
+        if ($scope.currShownDiv)
+        {
+            var id = '#tab_' + $scope.currShownDiv;
+            //$(id).hide();
+            $(id).css('display','none');
+        }
 
+        $scope.currShownDiv = engine;
+
+        id = '#tab_' + engine;
+        //$(id).show();
+        $(id).css('display','inline');
+    }
 
 
 	/*
