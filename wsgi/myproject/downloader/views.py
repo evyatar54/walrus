@@ -45,6 +45,7 @@ def search(request):
             return HttpResponse(json.dumps({}), content_type="application/json")
     except:
         print(traceback.format_exc())
+    print('wrong !!')
     return HttpRepsonse('request method must be POST')
 
 
