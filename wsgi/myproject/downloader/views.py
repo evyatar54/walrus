@@ -24,35 +24,36 @@ def index(request):
 
 def search(request):
     try:
+        Results = {}
         if request.method == 'POST':
-            if 'Qs[]' in request.POST:
+            if 'Qs[]' in request.POST and 'Engines[]' in request.POST:
 
-                engine = "Default"
-                if 'Engine' in request.POST:
-                    engine = request.POST["Engine"]
+                # engine = "Default"
+                # if 'Engine' in request.POST:
+                #     engine = request.POST["Engine"]
 
+                Es = request.POST.getlist('Engines[]')
                 Qs = request.POST.getlist('Qs[]')
-                Results = {}
-                if Qs:
+                for engine in Es:
+                    print("Engine: ", engine)
                     t = getSearcherByEngine(engine)
-                    # ### t = Kickass_Searcher.Kickass_Searcher()#TPB_Searcher.TPB_Searcher()
-                    Results = t.search_queries(Qs)
-                else:
-                    pass
-                return HttpResponse(json.dumps(Results), content_type="application/json")
-            return HttpResponse(json.dumps({}), content_type="application/json")
-        else:
-            return HttpResponse(json.dumps({}), content_type="application/json")
+                    Results[engine] = t.search_queries(Qs)
+
+        return render(request, 'downloader/results.html', {
+            'Answer': Results,
+            'error_message': "Error...",
+        })
+        # return HttpResponse(json.dumps(Results), content_type="application/json")
     except:
         print(traceback.format_exc())
     print('wrong !!')
-    return HttpRepsonse('request method must be POST')
+    return HttpResponse('request method must be POST')
 
 
 def getSearcherByEngine(engine):
     if engine == "Default":
         return TPB_Searcher.TPB_Searcher()
-    if engine == "ThePirateBay":
+    elif engine == "ThePirateBay":
         return TPB_Searcher.TPB_Searcher()
     elif engine == "KickassTorrents":
         return Kickass_Searcher.Kickass_Searcher()

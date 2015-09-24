@@ -23,7 +23,7 @@ class Kickass_Searcher:
             #results[query] = result
         for t in thread_pull:
             t.join()
-        return {"KickassTorrents": results}
+        return results
 
 def search(URL, query, result_dict):
     url_query = urllib.parse.quote(query)

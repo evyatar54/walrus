@@ -15,8 +15,8 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'downloader/style.css' %}" />
 </head>
 
-{% verbatim %}
-<div class="_body" ng-app="myApp" ng-controller="queryCtrl">
+
+<div class="body" ng-app="myApp" ng-controller="queryCtrl">
 
 	<div class="container site_header">
 	  <div class="page-header">
@@ -25,83 +25,54 @@
 	  <description> search multiple queries simultaneously over multiple search engines </description>
 	</div>
 	<br>
-	<div id="main_app" class="container main_app">
 
-    <div class="container" id="results">
+    <div class="main_app">
 
-		<div class="modal fade" id="myModal" role="dialog">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-					  <h4 class="modal-title">Loading</h4>
-					</div>
-					<div class="modal-body">
-						Please wait while searching for results ...
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="container result_area" >
+        {% for engine, names in Answer.items %}
+            <div id="tab_{{engine}}" class="container">
+                {% for name, results in names.items %}
 
-
-         <div class="engines-tabs" _style="background-color: white">
-            <ul id="myTab" class="nav nav-tabs">
-                    <li ng-repeat='(e,val) in engines | active_only' ng-class="{active:$first}">
-                        <a id="ref_{{e}}" ng-click="showMyDiv(e)" style="color: #7767AD;">{{val["name"]}}</a>
-                    </li>
-            </ul>
-        </div>
-
-		<!-- <button class="btn pull-right" ng-click="downloadSelected()">Get All Selected</button> -->
-            <div class="tab-content">
-                <div id="tab_ResultsPlaceHolder" class="container">
-                    Please search for what you seek before you ask for results ...
-                </div>
-                <div ng-repeat="(e,n) in engines | active_only" style="display:none;" class="fade" id="tab_{{e}}">
-                    <div  class="container" ng-repeat="(key, r) in results[e]" ng-init="parentIndex = $index;">
-
-                        <div class="result_header" data-toggle="collapse" data-target="#{{e}}_result_div_{{parentIndex}}">
-                            <h2 class="result_h2">Results for "{{key}}": </h2>
-                        </div>
-
-                        <div id="{{e}}_result_div_{{parentIndex}}" class="collapse scrollToCollapsee result_container">
-                        <table class="table table-striped table-hover" id="result_table_{{parentIndex}}">
-                            <thead>
-                                <tr>
-
-                                    <!-- <th></th> -->
-
-                                    <th>Name</th>
-                                    <th>General Info</th>
-                                    <th>Seeds</th>
-                                    <th>leeches</th>
-                                    <th>Download</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="tr" ng-repeat="line in r track by $index" ng-class="getSelectedClass(line)">
-
-                                    <!-- <td><input type="checkbox" ng-click="updateSelection($event, key, $index)"></td> -->
-
-                                    <td class="td td-responsive">{{line[0]}} </td>
-                                    <td class="td td-responsive">{{line[1]}} </td>
-                                    <td class="td td-responsive">{{line[2]}} </td>
-                                    <td class="td td-responsive">{{line[3]}} </td>
-                                    <td class="td td-responsive">
-                                        <a href="{{line[4]}}" class="btn _pull-right myButton" title="Magnet Link">Download</a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        </div>
+                    <div class="result_header" data-toggle="collapse" data-target="{{engine}}_{{name}}_collapse">
+                        <h2 class="result_h2">Results for "{{name}}": </h2>
                     </div>
-                </div>
+                    <div id="{{engine}}_{{name}}_collapse" class="collapse result_container">
+                        <table class="table table-striped table-hover" id="TBA">
+                        <thead>
+                            <tr>
+
+                                <!-- <th></th> -->
+
+                                <th>Name</th>
+                                <th>General Info</th>
+                                <th>Seeds</th>
+                                <th>leeches</th>
+                                <th>Download</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for r in results %}
+                            <tr class="tr" >
+
+                                <!-- <td><input type="checkbox" ng-click="updateSelection($event, key, $index)"></td> -->
+
+                                <td class="td td-responsive">{{r.0}} </td>
+                                <td class="td td-responsive">{{r.1}} </td>
+                                <td class="td td-responsive">{{r.2}} </td>
+                                <td class="td td-responsive">{{r.3}} </td>
+                                <td class="td td-responsive">
+                                    <a href="{{r.4}}" class="btn _pull-right myButton" title="Magnet Link">Download</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    </div>
+                {%endfor%}
             </div>
-		</div>
-	</div>
-	<br>
+        {% endfor %}
+    </div>
+
 </div>
-{% endverbatim  %}
 
 <script>
 
@@ -259,78 +230,7 @@ app.controller('queryCtrl', function($scope, $location, $anchorScroll) {
     }
 
 
-	/*
-	 ********* functions regarding to multiple choosing and downloading: ********
-
-	$scope.selected = {};
-	$scope.updateSelection = function($event, table, index)
-	{
-		var checkbox = $event.target;
-		var action = (checkbox.checked ? 'add' : 'remove');
-		if(typeof($scope.selected[table]) === 'undefined')
-		{
-			$scope.selected[table] = [];
-		}
-		if(action == 'add')
-		{
-			$scope.selected[table].push(index);
-		}
-		else
-		{
-			$scope.selected[table].splice($scope.selected[table].indexOf(index),1);
-		}
-
-	}
-	$scope.downloadSelected = function()
-	{
-		//alert("This service is temporarily unavailable as a result of
-		var array = [];
-		for (var arr in $scope.selected)
-		{
-			for (var index in $scope.selected[arr])
-			{
-				array.push($scope.results[arr][index][4]);
-			}
-		}
-		var win;
-		for (var i=0; i<array.length; i++)
-		{
-			console.log(array[i]);
-			win = window.open(array[i],'download_window'+i);
-			win.close();
-		}
-	}
-	function download_magnets(index, magnets)
-	{
-		if( i==0 )
-			window.open(array[i],'_self');
-		else
-		{
-			if(confirm("want another one ?"))
-			{
-				window.open(array[i],'_parent');
-			}
-			else
-			{
-				break;
-			}
-		}
-	}
-	//################### Until Here #######################*/
-})
-.directive('ngEnter', function() {
-        return function(scope, element, attrs) {
-            element.bind("keydown keypress", function(event) {
-                if(event.which === 13) {
-                    scope.$apply(function(){
-                        scope.$eval(attrs.ngEnter, {'event': event});
-                    });
-
-                    event.preventDefault();
-                }
-            });
-        };
-    });
+});
 
 app.filter('active_only', function() {
 
