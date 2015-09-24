@@ -2,6 +2,9 @@
 {% load staticfiles %}
 <head>
 	<title>Toorrents</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
 	<link rel="shortcut icon" href="{% static 'downloader/favicon.ico' %}" />
 
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -185,9 +188,10 @@ app.controller('queryCtrl', function($scope, $location, $anchorScroll) {
 
                 success: function(data, status, xhr){
                     $('#myModal').modal('hide');
-                    var newWin = window.open("");
-                    newWin.document.write(data);
-                    window = newWin;
+                    //var newWin = window.open("");
+                    //newWin.document.write(data);
+                    //window = newWin;
+                    window.document.write(data);
                 },
                 fail: function(response) {
                     $('#myModal').modal('hide');
