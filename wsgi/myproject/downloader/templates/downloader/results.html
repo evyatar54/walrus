@@ -31,8 +31,27 @@
 
     <div class="container main_app">
 
+        <ul class="nav nav-tabs" style="margin:10px;">
+            {% for engine in Answer %}
+                {% if forloop.first %}
+                    <li id="tab_{{engine}}" class="active" onclick="changeTab('{{engine}}')"><a>{{engine}}</a></li>
+                {% else %}
+                    <li id="tab_{{engine}}" onclick="changeTab('{{engine}}')" ><a>{{engine}}</a></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+
         {% for engine, names in Answer.items %}
-            <div id="tab_{{engine}}">
+
+            {% if forloop.first %}
+                <div id="tab_div_{{engine}}">
+                    <script>
+                        var currShownDiv = "tab_{{engine}}";
+                    </script>
+            {% else %}
+                <div id="tab_div_{{engine}}" style="display:none">
+            {% endif %}
+
                 {% for name, results in names.items %}
 
                     <div class="result_header" data-toggle="collapse" data-target="#{{engine}}_{{name}}_collapse">
@@ -75,10 +94,20 @@
         {% endfor %}
     </div>
 
+    </div>
 </div>
 
 <script>
+    var currShownDiv = "{% for k,v in Answer.items %}{%if forloop.first %}{{k}}{% else %}{%endif%}{% endfor %}";
+    function changeTab(engine) {
 
+        $('#tab_'+currShownDiv).removeClass('active');
+        $('#tab_'+engine).addClass('active');
+
+        $('#tab_div_'+currShownDiv).css('display', 'none');
+        $('#tab_div_'+engine).css('display', 'block');
+        currShownDiv = engine;
+    }
 
 var app = angular.module('myApp', [], function ($compileProvider) {
 
@@ -89,6 +118,11 @@ app.controller('queryCtrl', function($scope, $location, $anchorScroll) {
     $scope.engines = { 'KickassTorrents':{"active":1, "name": 'Kickass Torrents'}, 'ThePirateBay':{"active":1, "name": 'The Pirate Bay'}};
     $scope.queries = new Array();
     $scope.results = {};
+
+    $scope.stub = function()
+    {
+        alert('wow');
+    }
 
     $scope.ok = function()
 	{
@@ -216,20 +250,21 @@ app.controller('queryCtrl', function($scope, $location, $anchorScroll) {
         $scope.engines[key]['active'] = 1 - $scope.engines[key]['active'];
     }
 
-    $scope.currShownDiv = "ResultsPlaceHolder";
-    $scope.showMyDiv = function(engine) {
+    $scope.currShownDiv = "";
+    $scope.showMyDiv = function(id) {
+        alert('wow');
         if ($scope.currShownDiv)
         {
-            var id = '#tab_' + $scope.currShownDiv;
-            //$(id).hide();
-            $(id).css('display','none');
+            var old_id = '#' + $scope.currShownDiv;
+//            $(old_id).hide();
+            $(old_id).css('diplay: none');
         }
 
-        $scope.currShownDiv = engine;
+        $scope.currShownDiv = id;
 
-        id = '#tab_' + engine;
-        //$(id).show();
-        $(id).css('display','inline');
+        var new_id = '#' + id;
+//        $(new_id).show();
+        $(new_id).css('diplay: block');
     }
 
 

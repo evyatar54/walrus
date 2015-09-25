@@ -24,6 +24,7 @@ def index(request):
 
 def search(request):
     try:
+        print(request.POST)
         Results = {}
         if request.method == 'POST':
             if 'Qs[]' in request.POST and 'Engines[]' in request.POST:

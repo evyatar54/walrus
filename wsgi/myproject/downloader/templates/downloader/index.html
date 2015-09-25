@@ -2,7 +2,7 @@
 {% load staticfiles %}
 <head>
 	<title>Toorrents</title>
-    
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<link rel="shortcut icon" href="{% static 'downloader/favicon.ico' %}" />
@@ -116,7 +116,7 @@ var app = angular.module('myApp', [], function ($compileProvider) {
   $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|magnet):/);
   
 });
-app.controller('queryCtrl', function($scope, $location, $anchorScroll) {
+app.controller('queryCtrl', function($scope, $location, $anchorScroll, $filter) {
 
     $scope.engines = { 'KickassTorrents':{"active":1, "name": 'Kickass Torrents'},
         'ThePirateBay':{"active":1, "name": 'The Pirate Bay'}};
@@ -173,8 +173,12 @@ app.controller('queryCtrl', function($scope, $location, $anchorScroll) {
 		$('#myModal').modal('show');
         var _url = "{% url 'search' %}";
         var handler500 = function() { alert("500: Internal Server Error"); };
+
+        var Es = $filter('active_only')($scope.engines)
+        Es = Object.keys(Es);
+
 		var data = {"csrfmiddlewaretoken": "{{ csrf_token }}", state:"inactive",
-            "Qs": Qs, "Engines": Object.keys($scope.engines)};
+            "Qs": Qs, "Engines": Es};
 
         searchQueries(_url, data);
     };
