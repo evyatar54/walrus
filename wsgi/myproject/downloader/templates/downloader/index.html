@@ -192,10 +192,10 @@ app.controller('queryCtrl', function($scope, $location, $anchorScroll, $filter) 
 
                 success: function(data, status, xhr){
                     $('#myModal').modal('hide');
-                    var newWin = window.open("","_blank","",true);
-                    newWin.document.write(data);
+                    //var newWin = window.open(_url,"_blank","",true);
+                    //newWin.document.write(data);
                     //window = newWin;
-                    //window.document.write(data);
+                    window.document.write(data);
                 },
                 fail: function(response) {
                     $('#myModal').modal('hide');
