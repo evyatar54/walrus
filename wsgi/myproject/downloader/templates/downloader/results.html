@@ -98,7 +98,7 @@
 </div>
 
 <script>
-    var currShownDiv = "{% for k,v in Answer.items %}{%if forloop.first %}{{k}}{% else %}{%endif%}{% endfor %}";
+    var currShownDiv = "{% for key in Answer %}{%if forloop.first %}{{key}}{% else %}{%endif%}{% endfor %}";
     function changeTab(engine) {
 
         $('#tab_'+currShownDiv).removeClass('active');
@@ -124,91 +124,6 @@ app.controller('queryCtrl', function($scope, $location, $anchorScroll) {
         alert('wow');
     }
 
-    $scope.ok = function()
-	{
-		if(!$scope.query)
-			alert("Please enter a non empty query into the list");
-		else
-		{
-			$scope.queries.push(angular.copy($scope.query));
-			$scope.query = "";
-		}
-    };
-
-	$scope.remove = function(index)
-	{
-		$scope.queries.splice(index,1);
-	};
-
-	$scope.submit = function()
-	{
-		$scope.submited_queries = $scope.queries;
-		$scope.queries = new Array();
-	};
-
-	$scope.go = function(Qs) {
-        if (!Qs)
-        {
-            alert('Please enter some queries into the list')
-        }
-        $('#myModal').modal({backdrop: 'static', keyboard: false});
-		$('#myModal').modal('show');
-        var _url = "{% url 'search' %}";
-        var handler500 = function() { alert("500: Internal Server Error"); };
-		var data = {"csrfmiddlewaretoken": "{{ csrf_token }}", state:"inactive", "Qs": Qs, "Engine": ""};
-
-        //*
-        for (var key in $scope.engines) {
-
-            if($scope.engines[key]["active"] == 1)
-            {
-                data["Engine"] = key;
-                searchQueries(_url, data);
-            }
-        }
-        //*/
-        //searchQueries(_url, data);
-    };
-
-    function searchQueries(_url, data)
-    {
-        $.post(_url, data).done(function(response)
-		{
-			$('#myModal').modal('hide');
-			//alert(response);
-            $scope.$apply(function() {
-					$scope.results = {};
-				});
-			if(response)
-			{
-				//alert(JSON.stringify(response));
-				$scope.$apply(function() {
-                    //console.log("key: " + Object.keys(response))
-					//$scope.results[Object.keys(response)[0]] = [];
-					$scope.results[Object.keys(response)[0]] = response[Object.keys(response)[0]];
-				});
-				$('.scrollToCollapsee').unbind('shown.bs.collapse' , goToElement );
-				$('.scrollToCollapsee').unbind('hidden.bs.collapse', goToElement );
-				$('.scrollToCollapsee').bind('shown.bs.collapse' , goToElement );
-				$('.scrollToCollapsee').bind('hidden.bs.collapse', goToElement );
-				//$('#main_app').hide();
-				goToElementById('results')
-
-//                $scope.showMyDiv(data.Engine);
-//                console.log('#ref_' + data.Engine);
-                $('#ref_' + data.Engine).trigger('click');
-			}
-			else
-			{
-				alert("empty");
-			}
-		}).fail(function()
-		{
-			$('#myModal').modal('hide');
-			alert("Failed To Search Queries");
-		});
-    }
-
 	function goToElement(event)
 	{
 		var id = event.currentTarget.id;
@@ -220,35 +135,6 @@ app.controller('queryCtrl', function($scope, $location, $anchorScroll) {
 		$location.hash(id);
 		$anchorScroll();
 	};
-
-	$scope.updateQuery = function(index)
-	{
-		var input = '#query_input_' + index;
-		var label = '#query_text_'  + index;
-
-		$(input).val($(label).text());
-		$(input).show();
-
-		$(label).hide();
-	};
-
-	$scope.submited_query = function(index)
-	{
-		var input = '#query_input_' + index;
-		var label = '#query_text_'  + index;
-
-		var text = $(input).val();
-		$(label).text(text);
-		$(input).hide();
-		$(label).show();
-
-		$scope.queries[index] = text;
-	}
-
-    $scope.selectEngine = function(key)
-    {
-        $scope.engines[key]['active'] = 1 - $scope.engines[key]['active'];
-    }
 
     $scope.currShownDiv = "";
     $scope.showMyDiv = function(id) {
@@ -269,6 +155,7 @@ app.controller('queryCtrl', function($scope, $location, $anchorScroll) {
 
 
 });
+
 
 app.filter('active_only', function() {
 

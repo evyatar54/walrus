@@ -27,17 +27,11 @@
 	  </div>
 	  <description> search multiple queries simultaneously over multiple search engines </description>
 	</div>
-	
+	<br>
 	<div class="container select-engines">
-		<div class="select-engines-button ">
-			<button class="btn myButton" data-toggle="collapse" data-target="#select-engines">
-				Select Search Engines
-			</button>
-		</div>
-		<div id="select-engines" class="collapse select-engines-body">
+		<div id="select-engines" class="select-engines-body">
             <div class="engines-block">
-                <label class="checkbox-inline search-engine-holder"
-                                    ng-repeat="(e, val) in engines">
+                <label class="checkbox-inline search-engine-holder" ng-repeat="(e, val) in engines">
                     <input type="checkbox" value="" ng-click="selectEngine(e);" checked>
                         {{val["name"]}}
                     </input>
@@ -45,7 +39,7 @@
             </div>
 		</div>
 	</div>
-	<br>
+    <br>
 	<div id="main_app" class="container main_app">
 
 		<div class="query_area">
@@ -85,6 +79,9 @@
 
 		<div class="container buttom_toolbar">
 			<br>
+            <button class="btn myButton" ng-click="clearAll()">
+				Clear all
+			</button>
 			<button class="btn pull-right myButton" ng-click="go(queries)">
 				Search <span class="glyphicon glyphicon-search"></span> 
 			</button>
@@ -164,6 +161,11 @@ app.controller('queryCtrl', function($scope, $location, $anchorScroll, $filter) 
 		$scope.queries[index] = text;
 	}
 
+    $scope.clearAll = function()
+    {
+        $scope.queries = [];
+    }
+
 	$scope.go = function(Qs) {
         if (!Qs)
         {
@@ -192,10 +194,10 @@ app.controller('queryCtrl', function($scope, $location, $anchorScroll, $filter) 
 
                 success: function(data, status, xhr){
                     $('#myModal').modal('hide');
-                    //var newWin = window.open("");
-                    //newWin.document.write(data);
+                    var newWin = window.open("","_blank","",true);
+                    newWin.document.write(data);
                     //window = newWin;
-                    window.document.write(data);
+                    //window.document.write(data);
                 },
                 fail: function(response) {
                     $('#myModal').modal('hide');

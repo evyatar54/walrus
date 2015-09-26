@@ -24,14 +24,10 @@ def index(request):
 
 def search(request):
     try:
-        print(request.POST)
+        #print(request.POST)
         Results = {}
         if request.method == 'POST':
             if 'Qs[]' in request.POST and 'Engines[]' in request.POST:
-
-                # engine = "Default"
-                # if 'Engine' in request.POST:
-                #     engine = request.POST["Engine"]
 
                 Es = request.POST.getlist('Engines[]')
                 Qs = request.POST.getlist('Qs[]')
@@ -43,12 +39,12 @@ def search(request):
         return render(request, 'downloader/results.html', {
             'Answer': Results,
             'error_message': "Error...",
-        })
+            })
         # return HttpResponse(json.dumps(Results), content_type="application/json")
     except:
         print(traceback.format_exc())
     print('wrong !!')
-    return HttpResponse('request method must be POST')
+    return HttpResponse('Rendering error')
 
 
 def getSearcherByEngine(engine):
@@ -60,3 +56,11 @@ def getSearcherByEngine(engine):
         return Kickass_Searcher.Kickass_Searcher()
     else:
         return TPB_Searcher.TPB_Searcher()
+
+
+def tryIt(request):
+    Results = { 'a':[1,2,3], 'b':[4,5,6], 'c':[7,8,9]}
+    return render(request, 'downloader/try.html', {
+            'Answer': Results,
+            'error_message': "Error...",
+        })

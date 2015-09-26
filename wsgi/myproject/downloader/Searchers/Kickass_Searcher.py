@@ -46,20 +46,29 @@ def get_results_from_tree(tree):
         results = []
         for line in lines:
             torrent = []
-            name 	= ""
-            info 	= ""
-            seeds	= ""
-            leeches = ""
-            magnet	= ""
-            ### assign values to torrents fields ###
+            ### assign values to torrents fields ### name, info seeds, leeches, magnet-link
             name 	= line.xpath('.//a[@class="cellMainLink"]')
             if name:
                 name = name[0].text_content()
 
+            info = ""
+            info += "Uploaded by "
+            user = line.xpath('.//a[@class="plain"]')
+            if user:
+                user = user[0].text
+            info += user + ", "
 
-            #info 	= line.xpath('.//font')
-            #if info:
-            #info = info[0].text
+            info += "before "
+            age_td = line.getchildren()[3]
+            age = age_td.text.replace("&nbsp", " ")
+            info += age + ", "
+
+            info += "Size "
+            size_td = line.getchildren()[1]
+            size = size_td.text
+            size += size_td.xpath('.//span')[0].text
+            info += size
+
 
             seeds	= line.getchildren()[4].text
             leeches = line.getchildren()[5].text
