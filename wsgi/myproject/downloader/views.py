@@ -26,16 +26,15 @@ def search(request):
     try:
         #print(request.POST)
         Results = {}
-        if request.method == 'POST':
-            if 'Qs[]' in request.POST and 'Engines[]' in request.POST:
+        if request.method == 'GET':
+            if 'Qs[]' in request.GET and 'Engines[]' in request.GET:
 
-                Es = request.POST.getlist('Engines[]')
-                Qs = request.POST.getlist('Qs[]')
+                Es = request.GET.getlist('Engines[]')
+                Qs = request.GET.getlist('Qs[]')
                 for engine in Es:
                     print("Engine: ", engine)
                     t = getSearcherByEngine(engine)
                     Results[engine] = t.search_queries(Qs)
-
         return render(request, 'downloader/results.html', {
             'Answer': Results,
             'error_message': "Error...",
@@ -59,8 +58,33 @@ def getSearcherByEngine(engine):
 
 
 def tryIt(request):
-    Results = { 'a':[1,2,3], 'b':[4,5,6], 'c':[7,8,9]}
-    return render(request, 'downloader/try.html', {
+    try:
+        a = render(request, 'downloader/try.html' )
+        return a
+    except:
+        traceback.print_exc(file=sys.stdout)
+        return HttpResponse("Error getting index.html, \nsee console log for exception details")
+
+
+def amm(request):
+    try:
+        #print(request.POST)
+        Results = {}
+        if request.method == 'GET':
+            if 'Qs[]' in request.GET and 'Engines[]' in request.GET:
+
+                Es = request.GET.getlist('Engines[]')
+                Qs = request.GET.getlist('Qs[]')
+                for engine in Es:
+                    print("Engine: ", engine)
+                    t = getSearcherByEngine(engine)
+                    Results[engine] = t.search_queries(Qs)
+        return render(request, 'downloader/results.html', {
             'Answer': Results,
             'error_message': "Error...",
-        })
+            })
+        # return HttpResponse(json.dumps(Results), content_type="application/json")
+    except:
+        print(traceback.format_exc())
+    print('wrong !!')
+    return HttpResponse('Rendering error')

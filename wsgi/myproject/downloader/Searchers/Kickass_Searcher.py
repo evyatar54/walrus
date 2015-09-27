@@ -56,7 +56,7 @@ def get_results_from_tree(tree):
             user = line.xpath('.//a[@class="plain"]')
             if user:
                 user = user[0].text
-            info += user + ", "
+                info += user + ", "
 
             info += "before "
             age_td = line.getchildren()[3]
