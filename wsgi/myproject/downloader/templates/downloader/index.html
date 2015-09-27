@@ -16,7 +16,20 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'downloader/style.css' %}" />
 </head>
 
+<button class="btn" data-toggle="collapse" data-target="#demo1">Collapsible</button>
+
+<div id="demo1" class="collapse">
+Some text..
+</div>
+
 {% verbatim %}
+
+<button class="btn" data-toggle="collapse" data-target="#demo">Collapsible</button>
+
+<div id="demo" class="collapse">
+Some text..
+</div>
+
 <div class="body" ng-app="myApp" ng-controller="queryCtrl">
 	
 	<div class="container site_header">
