@@ -32,13 +32,13 @@ description
 
 div.select-engines-div
 {
-	_width: 100%;
-	_margin: 1 auto;
+	/*width: 100%;*/
+	/*margin: 1 auto;*/
 
 	padding: 10px;
     margin-top: 1px;
 
-    _background-color: #7767AD;
+    /*background-color: #7767AD;*/
     color: white;
     text-align: center;
 }
@@ -147,7 +147,6 @@ h2.result_h2
 
 div.result_container
 {
-	_height:400px;
 	overflow-y:scroll;
 	border: 1px solid #7767AD;
 	max-height:400px;
