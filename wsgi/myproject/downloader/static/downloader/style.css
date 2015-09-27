@@ -106,7 +106,7 @@ input.edit_query
 td.td-responsive
 {
     word-wrap:break-word;
-    _word-break:break-word;
+    word-break:break-word;
 }
 
 div.modal-header
