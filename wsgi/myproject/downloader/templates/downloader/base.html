@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+    <head>
+        <title>Toorrents</title>
+
+        <link rel="shortcut icon" href="{% static 'downloader/favicon.ico' %}" />
+
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="{% static 'downloader/style.css' %}" />
+    </head>
+    <body>
+
+        <div class="container site_header">
+            <div class="page-header">
+                <header>Toorrents</header>
+            </div>
+            <description> search multiple queries simultaneously over multiple search engines </description>
+        </div>
+        <br>
+
+        {% block content %}
+        {% endblock %}
+
+    </body>
+</html>

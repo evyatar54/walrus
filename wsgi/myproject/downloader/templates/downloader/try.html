@@ -19,76 +19,6 @@
 
 {% verbatim %}
 <body>
-<div class="body" ng-app="myApp" ng-controller="queryCtrl">
-	
-	<div class="container site_header">
-	  <div class="page-header">
-		<header>Toorrents</header>      
-	  </div>
-	  <description> search multiple queries simultaneously over multiple search engines </description>
-	</div>
-	<br>
-
-	<div class="container select-engines">
-		<div id="select-engines" class="select-engines-body">
-            <div class="engines-block">
-                <label class="checkbox-inline search-engine-holder" ng-repeat="(e, val) in engines">
-                    <input type="checkbox" value="" ng-click="selectEngine(e);" checked>
-                        {{val["name"]}}
-                    </input>
-                </label>
-            </div>
-		</div>
-	</div>
-    <br>
-
-	<div id="main_app" class="container main_app">
-
-		<div class="query_area">
-			<form novalidate>
-				<div class="well" style="white-space: nowrap">
-						<input class="input insert_query" placeholder="Enter Query" type="text" ng-model="query"/> 
-						<button class="btn myButton" ng-click="ok()"> Add </button>
-				</div>
-			</form>
-			
-			<div class="table_area">
-				<table class="table table-striped table-hover" id="quries_table">
-					<tr class="tr" ng-repeat="x in queries track by $index" ng-init="queryIndex = $index">
-						<td class="td"> 
-							<table>
-								<td class ="query_cell">
-									<div class="query_div">
-										<p id="query_text_{{$index}}">{{x}}<p>
-										<input id="query_input_{{$index}}" class="input edit_query" 
-										ng-blur="submited_query($index)" ng-enter="submited_query($index)" type="text" />
-									</div>
-								</td>
-								<td class="query_edit">
-									<button class="btn pull-right myButton" ng-click="updateQuery(queryIndex)"> Edit </button>
-								</td>
-								<td class="query_remove">
-									<button class="btn pull-right myButton" ng-click="remove(queryIndex)"> Remove </button>
-								</td>
-							</table>
-						</td>
-					</tr>
-				</table>
-			</div>
-		</div>
-		<br>
-
-		<div class="container buttom_toolbar">
-			<br>
-            <button class="btn myButton" ng-click="clearAll()">
-				<strong>Clear all</strong> <span class="glyphicon  glyphicon-remove"></span>
-			</button>
-			<button class="btn pull-right myButton" ng-click="go(queries)">
-				<strong>Search </strong><span class="glyphicon glyphicon-search"></span>
-			</button>
-		</div>
-	</div>
-	<br>
 
     <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog">
@@ -102,7 +32,78 @@
             </div>
         </div>
     </div>
-</div>
+    <div class="body" ng-app="myApp" ng-controller="queryCtrl">
+
+        <div class="container site_header">
+          <div class="page-header">
+            <header>Toorrents</header>
+          </div>
+          <description> search multiple queries simultaneously over multiple search engines </description>
+        </div>
+        <br>
+
+        <div class="container select-engines">
+            <div id="select-engines" class="select-engines-body">
+                <div class="engines-block">
+                    <label class="checkbox-inline search-engine-holder" ng-repeat="(e, val) in engines">
+                        <input type="checkbox" value="" ng-click="selectEngine(e);" checked>
+                            {{val["name"]}}
+                        </input>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div id="main_app" class="container main_app">
+
+            <div class="query_area">
+                <form novalidate>
+                    <div class="well" style="white-space: nowrap">
+                            <input class="input insert_query" placeholder="Enter Query" type="text" ng-model="query"/>
+                            <button class="btn myButton" ng-click="ok()"> Add </button>
+                    </div>
+                </form>
+
+                <div class="table_area">
+                    <table class="table table-striped table-hover" id="quries_table">
+                        <tr class="tr" ng-repeat="x in queries track by $index" ng-init="queryIndex = $index">
+                            <td class="td">
+                                <table>
+                                    <td class ="query_cell">
+                                        <div class="query_div">
+                                            <p id="query_text_{{$index}}">{{x}}<p>
+                                            <input id="query_input_{{$index}}" class="input edit_query"
+                                            ng-blur="submited_query($index)" ng-enter="submited_query($index)" type="text" />
+                                        </div>
+                                    </td>
+                                    <td class="query_edit">
+                                        <button class="btn pull-right myButton" ng-click="updateQuery(queryIndex)"> Edit </button>
+                                    </td>
+                                    <td class="query_remove">
+                                        <button class="btn pull-right myButton" ng-click="remove(queryIndex)"> Remove </button>
+                                    </td>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <br>
+
+            <div class="container buttom_toolbar">
+                <br>
+                <button class="btn myButton" ng-click="clearAll()">
+                    <strong>Clear all</strong> <span class="glyphicon  glyphicon-remove"></span>
+                </button>
+                <button class="btn pull-right myButton" ng-click="go(queries)">
+                    <strong>Search </strong><span class="glyphicon glyphicon-search"></span>
+                </button>
+            </div>
+        </div>
+        <br>
+
+    </div>
 
 
 
@@ -110,7 +111,6 @@
 {% endverbatim  %}
 
 <script>
-
 
 var app = angular.module('myApp', [], function ($compileProvider) {
 
@@ -190,6 +190,8 @@ app.controller('queryCtrl', function($scope, $location, $anchorScroll, $filter) 
 
     function searchQueries(_url, data)
     {
+        window.location.href = _url+'?'+ $.param(data)
+        /*
             $.ajax({
                 url: _url,
                 method: 'GET',
@@ -197,17 +199,28 @@ app.controller('queryCtrl', function($scope, $location, $anchorScroll, $filter) 
 
                 success: function(data, status, xhr){
                     $('#myModal').modal('hide');
-                    $('body').html(data);
+                    $('div.body').html(data);
                 },
                 fail: function(response) {
                     $('#myModal').modal('hide');
                     alert('Failed to search server');
                 }
             });
+        */
     }
 
-	
 
+	function goToElement(event)
+	{
+		var id = event.currentTarget.id;
+		goToElementById(id)
+	};
+
+	function goToElementById(id)
+	{
+		$location.hash(id);
+		$anchorScroll();
+	};
 
     $scope.selectEngine = function(key)
     {
@@ -248,85 +261,3 @@ app.filter('active_only', function() {
 
 </script>
 
-<!--
-
-
-<script>
-
-
-var app = angular.module('myApp', [], function ($compileProvider) {
-
-  $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|magnet):/);
-
-});
-app.controller('queryCtrl', function($scope, $location, $anchorScroll) {
-    $scope.engines = { 'KickassTorrents':{"active":1, "name": 'Kickass Torrents'}, 'ThePirateBay':{"active":1, "name": 'The Pirate Bay'}};
-    $scope.queries = new Array();
-    $scope.results = {};
-
-    $scope.stub = function()
-    {
-        alert('wow');
-    }
-
-	function goToElement(event)
-	{
-		var id = event.currentTarget.id;
-		goToElementById(id)
-	};
-
-	function goToElementById(id)
-	{
-		$location.hash(id);
-		$anchorScroll();
-	};
-
-    $scope.currShownDiv = "";
-    $scope.showMyDiv = function(id) {
-        alert('wow');
-        if ($scope.currShownDiv)
-        {
-            var old_id = '#' + $scope.currShownDiv;
-//            $(old_id).hide();
-            $(old_id).css('diplay: none');
-        }
-
-        $scope.currShownDiv = id;
-
-        var new_id = '#' + id;
-//        $(new_id).show();
-        $(new_id).css('diplay: block');
-    }
-
-
-});
-
-
-app.filter('active_only', function() {
-
-    // In the return function, we must pass in a single parameter which will be the data we will work on.
-    // We have the ability to support multiple other parameters that can be passed into the filter optionally
-    return function(input) {
-
-        var output = {};
-
-        // Do filter work here
-
-        for (var e in input)
-        {
-            if(input[e]['active'] == 1)
-                output[e] = input[e]
-        }
-//        console.log(JSON.stringify(output))
-//        output = input;
-
-
-        return output;
-
-    }
-
-});
-
-</script>
-
--->

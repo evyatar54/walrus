@@ -1,24 +1,8 @@
-<!DOCTYPE html>
-
-{% load staticfiles %}
-<head>
-	<title>Toorrents</title>
-
-	<link rel="shortcut icon" href="{% static 'downloader/favicon.ico' %}" />
-
-	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
-	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
-	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
-
-	<link rel="stylesheet" type="text/css" href="{% static 'downloader/style.css' %}" />
-</head>
-
+{% extends "downloader/base.html" %}
+{% block content %}
 {% verbatim %}
-<body>
+    <div ng-app="myApp" ng-controller="queryCtrl">
+
 
     <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog">
@@ -32,15 +16,6 @@
             </div>
         </div>
     </div>
-    <div class="body" ng-app="myApp" ng-controller="queryCtrl">
-
-        <div class="container site_header">
-          <div class="page-header">
-            <header>Toorrents</header>
-          </div>
-          <description> search multiple queries simultaneously over multiple search engines </description>
-        </div>
-        <br>
 
         <div class="container select-engines">
             <div id="select-engines" class="select-engines-body">
@@ -104,10 +79,6 @@
         <br>
 
     </div>
-
-
-
-</body>
 {% endverbatim  %}
 
 <script>
@@ -177,7 +148,7 @@ app.controller('queryCtrl', function($scope, $location, $anchorScroll, $filter) 
         }
         $('#myModal').modal({backdrop: 'static', keyboard: false});
 		$('#myModal').modal('show');
-        var _url = "{% url 'amm' %}";
+        var _url = "{% url 'search' %}";
         var handler500 = function() { alert("500: Internal Server Error"); };
 
         var Es = $filter('active_only')($scope.engines)
@@ -190,6 +161,8 @@ app.controller('queryCtrl', function($scope, $location, $anchorScroll, $filter) 
 
     function searchQueries(_url, data)
     {
+        window.location.href = _url+'?'+ $.param(data)
+        /*
             $.ajax({
                 url: _url,
                 method: 'GET',
@@ -204,6 +177,7 @@ app.controller('queryCtrl', function($scope, $location, $anchorScroll, $filter) 
                     alert('Failed to search server');
                 }
             });
+        */
     }
 
 
@@ -258,3 +232,4 @@ app.filter('active_only', function() {
 
 </script>
 
+{% endblock %}

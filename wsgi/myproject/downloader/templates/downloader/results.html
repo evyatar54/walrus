@@ -1,10 +1,5 @@
-<div class="container site_header">
-  <div class="page-header">
-    <header>Toorrents</header>
-  </div>
-  <description> search multiple queries simultaneously over multiple search engines </description>
-</div>
-<br>
+{% extends 'downloader/base.html' %}
+{% block content %}
 <div class="container main_app">
         <ul class="nav nav-tabs" style="margin:10px;">
             {% for engine in Answer %}
@@ -29,10 +24,10 @@
 
                 {% for name, results in names.items %}
 
-                    <div class="result_header" data-toggle="collapse" data-target="#{{engine}}_{{name}}_collapse">
+                    <div class="result_header" data-toggle="collapse" data-target="#{{engine}}_{{forloop.counter}}_collapse">
                         <h2 class="result_h2">Results for "{{name}}": </h2>
                     </div>
-                    <div id="{{engine}}_{{name}}_collapse" class="collapse result_container">
+                    <div id="{{engine}}_{{forloop.counter}}_collapse" class="collapse result_container">
                         <table class="table table-striped table-hover" id="{{engine}}_{{name}}_table">
                             <thead>
                                 <tr>
@@ -77,3 +72,5 @@ function changeTab(engine) {
 }
 
 </script>
+
+{% endblock %}

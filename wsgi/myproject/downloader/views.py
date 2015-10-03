@@ -55,36 +55,3 @@ def getSearcherByEngine(engine):
         return Kickass_Searcher.Kickass_Searcher()
     else:
         return TPB_Searcher.TPB_Searcher()
-
-
-def tryIt(request):
-    try:
-        a = render(request, 'downloader/try.html' )
-        return a
-    except:
-        traceback.print_exc(file=sys.stdout)
-        return HttpResponse("Error getting index.html, \nsee console log for exception details")
-
-
-def amm(request):
-    try:
-        #print(request.POST)
-        Results = {}
-        if request.method == 'GET':
-            if 'Qs[]' in request.GET and 'Engines[]' in request.GET:
-
-                Es = request.GET.getlist('Engines[]')
-                Qs = request.GET.getlist('Qs[]')
-                for engine in Es:
-                    print("Engine: ", engine)
-                    t = getSearcherByEngine(engine)
-                    Results[engine] = t.search_queries(Qs)
-        return render(request, 'downloader/results.html', {
-            'Answer': Results,
-            'error_message': "Error...",
-            })
-        # return HttpResponse(json.dumps(Results), content_type="application/json")
-    except:
-        print(traceback.format_exc())
-    print('wrong !!')
-    return HttpResponse('Rendering error')

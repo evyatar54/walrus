@@ -2,15 +2,9 @@
 html,body
 {
     height: 100%;
-}
-
-div.body
-{
-	background-color: #E2DFEE;
-	height: 100%;
+    background-color: #E2DFEE;
 	overflow: auto;
 }
-
 
 div.site_header
 {
