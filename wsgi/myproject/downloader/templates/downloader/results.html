@@ -59,6 +59,9 @@ function changeTab(engine) {
     currShownDiv = engine;
 }
 
+    $(document).ready(function(){
+        $('.result_container').on('click', function(){ $(this).toggle();})
+    });
 </script>
 
 {% endblock %}
