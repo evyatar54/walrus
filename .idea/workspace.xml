@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="cd4cdd36-76be-45ec-8b7c-d94c05f6e1ea" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wsgi/myproject/downloader/templates/downloader/base.html" afterPath="$PROJECT_DIR$/wsgi/myproject/downloader/templates/downloader/base.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="walrus.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -54,7 +53,7 @@
         <entry file="file://$PROJECT_DIR$/wsgi/myproject/downloader/templates/downloader/base.html">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.46735394" vertical-offset="0" max-vertical-offset="646">
-              <caret line="16" column="99" selection-start-line="16" selection-start-column="99" selection-end-line="16" selection-end-column="99" />
+              <caret line="16" column="101" selection-start-line="16" selection-start-column="101" selection-end-line="16" selection-end-column="101" />
               <folding />
             </state>
           </provider>
@@ -861,7 +860,7 @@
     <entry file="file://$PROJECT_DIR$/wsgi/myproject/downloader/templates/downloader/base.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.46735394" vertical-offset="0" max-vertical-offset="646">
-          <caret line="16" column="99" selection-start-line="16" selection-start-column="99" selection-end-line="16" selection-end-column="99" />
+          <caret line="16" column="101" selection-start-line="16" selection-start-column="101" selection-end-line="16" selection-end-column="101" />
           <folding />
         </state>
       </provider>
