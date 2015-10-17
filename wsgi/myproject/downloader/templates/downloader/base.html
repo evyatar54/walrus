@@ -1,10 +1,7 @@
 <!DOCTYPE html>
-{% load staticfiles %}
 <html>
-    <head>
+<head>
         <title>Toorrents</title>
-
-        <link rel="shortcut icon" href="{% static 'downloader/favicon.ico' %}" />
 
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
@@ -12,17 +9,34 @@
 
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
+        {% load staticfiles %}
+        <link rel="shortcut icon" href="{% static 'downloader/favicon.ico' %}" />
         <link rel="stylesheet" type="text/css" href="{% static 'downloader/style.css' %}" />
 
     </head>
-    <body>
-
-        <div class="container site_header">
-            <div class="page-header">
+    <body class="light-primary-color">
+        <nav class="navbar navbar-inverse navbar-fixed-top navbar-dark dark-primary-color">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                  <a class="navbar-brand" style="color: white;" href="#" >Home</a>
+                </div>
+                <div>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#" style="color: white;">Page 1</a></li>
+                        <li><a href="#" style="color: white;">Page 2</a></li>
+                        <li><a href="#" style="color: white;">Page 3</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container site_header default-primary-color text-primary-color">
+            <br>
+            <div class="page-header divider-color">
                 <header>Toorrents</header>
             </div>
-            <description> search multiple queries simultaneously over multiple search engines </description>
+            <description class="text-primary-color" > search multiple queries simultaneously over multiple search engines </description>
         </div>
+
         <br>
 
         {% block content %}

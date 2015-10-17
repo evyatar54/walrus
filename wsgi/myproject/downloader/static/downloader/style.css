@@ -7,6 +7,19 @@
 #   background color: #EDE7F6
 
 */
+/* official palette*/
+
+.dark-primary-color    { background: #512DA8; }
+.default-primary-color { background: #673AB7; }
+.light-primary-color   { background: #D1C4E9; }
+.text-primary-color    { color: white; }
+.accent-color          { background: #03A9F4; }
+.primary-text-color    { color: #212121; }
+.secondary-text-color  { color: #727272; }
+.divider-color         { border-color: #B6B6B6; }
+
+/* additioning to palette*/
+.default-secondary-color { background-color: white; }
 
 
 @font-face
@@ -25,15 +38,17 @@
 html,body
 {
     height: 100%;
-    background-color: #EDE7F6;
-	overflow: auto;
+}
+
+nav.navbar-dark
+{
+    z-index: 0;
+    border-color: transparent;
 }
 
 div.site_header
 {
-	background-color: #673AB7;
 	font-family: "GeomaRegular", Geoma;
-	color: white;
 	width: 100%;
 	padding-bottom:5px;
 	box-shadow: 0 5px 10px grey;
@@ -48,25 +63,25 @@ description
 	font-size: 1.5em;
 }
 
+/*
 div.select-engines-div
 {
-	/*width: 100%;*/
-	/*margin: 1 auto;*/
-
 	padding: 10px;
     margin-top: 1px;
-
-    /*background-color: #673AB7;*/
     color: white;
     text-align: center;
+}
+*/
+div.form_holder
+{
+    padding: 20px;
+    white-space: nowrap
 }
 
 div.select-engines-body
 {
-	background-color: white;
 	margin: 0 auto;
-	padding: 10px; 
-	_border: 1px solid #673AB7;
+	padding: 10px;
 	box-shadow: 0 0 10px black;
 }
 
@@ -77,15 +92,7 @@ div.engines-block
 
 label.search-engine-holder
 {
-	_width: 12.5em;
     padding-right: 15px;
-}
-
-div.form_holder
-{
-    background-color: white;
-    padding: 20px;
-    white-space: nowrap
 }
 
 div.main_app
@@ -94,8 +101,7 @@ div.main_app
 	width: 70%;
     padding: 1%;
     margin-top: 30px;
-    background-color: #B39DDB;
-    box-shadow: 0px 0px 15px grey;
+    box-shadow: 0px 0px 15px black;
 }
 
 div.query_area
@@ -106,12 +112,6 @@ div.query_area
 div.wider
 {
     width: 80%;
-}
-
-div.results_holder
-{
-    background-color:white;
-    box-shadow: 0 0 15px grey;
 }
 
 div.query_div
@@ -173,29 +173,13 @@ div.tab-content
 
 .myButton
 {
-	background-color: #B39DDB; /*white;/*#EDE7F6;/*#673AB7;*/
     font-weight: bold;
-	color: white;
-    _box-shadow: 0 0 5px black;
     border-radius: 0;
-}
-
-.myButton:hover,.myButton:focus, .myButton:visited
-{
-	color: white;
 }
 
 .actionButton
 {
-    box-shadow: 0 0 5px black;
-    background-color: white;
-    _color: #B39DDB;
-    color: #673AB7;
-}
-.actionButton:hover,.actionButton:focus, .actionButton:visited
-{
-	_color: #B39DDB;
-    color: #673AB7;
+    box-shadow: 0 0 10px black;
 }
 
 
@@ -203,17 +187,27 @@ div.tab-content
 
 div.results_container
 {
-    box-shadow: 0 0 15px black;
+    _box-shadow: 0 0 15px gray;
+}
+
+div.results_holder
+{
+    _background-color:white;
+    _box-shadow: 0 0 15px grey;
+}
+
+div.result_container
+{
+	overflow-y:scroll;
+	_border: 1px solid #673AB7;
+	max-height:400px;
 }
 
 div.result_header
 {
 	width: 100%;
-	color: black;
-	border: 1px groove #673AB7;
+	border-bottom: 1px solid #B6B6B6;
 	padding-left: 5px;
-    background-color: white;
-
 }
 
 div.result_header:hover
@@ -223,25 +217,68 @@ div.result_header:hover
 
 h2.result_h2
 {
-	color: #673AB7;
+	_color: #673AB7;
 	font-family: "RawengulkSans-094", RawengulkSans;
 }
 
-div.result_container
-{
-	overflow-y:scroll;
-	border: 1px solid #673AB7;
-	max-height:400px;
-}
 
 
 a.my_tab
 {
-    color: white;
+    _color: white;
     font-weight: bold;
 }
 
 a.my_tab:hover
 {
-    color: #673AB7;
+    _color: #673AB7;
+}
+
+
+
+/* accent button*/
+.btn-accent {
+  color: #FFFFFF;
+  background-color: #03A9F4;
+  _border-color: #2B00FF;
+}
+
+.btn-accent:hover,
+.btn-accent:focus,
+.btn-accent:active,
+.btn-accent.active,
+.open .dropdown-toggle.btn-accent {
+  color: #FFFFFF;
+  background-color: #0377F4;
+  _border-color: #2B00FF;
+}
+
+.btn-accent:active,
+.btn-accent.active,
+.open .dropdown-toggle.btn-accent {
+  background-image: none;
+}
+
+.btn-accent.disabled,
+.btn-accent[disabled],
+fieldset[disabled] .btn-accent,
+.btn-accent.disabled:hover,
+.btn-accent[disabled]:hover,
+fieldset[disabled] .btn-accent:hover,
+.btn-accent.disabled:focus,
+.btn-accent[disabled]:focus,
+fieldset[disabled] .btn-accent:focus,
+.btn-accent.disabled:active,
+.btn-accent[disabled]:active,
+fieldset[disabled] .btn-accent:active,
+.btn-accent.disabled.active,
+.btn-accent[disabled].active,
+fieldset[disabled] .btn-accent.active {
+  background-color: #03A9F4;
+  border-color: #2B00FF;
+}
+
+.btn-accent .badge {
+  color: #03A9F4;
+  background-color: #FFFFFF;
 }

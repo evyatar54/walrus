@@ -1,21 +1,22 @@
 {% extends 'downloader/base.html' %}
 {% block content %}
-<div class="container main_app wider">
+<div class="container main_app wider default-secondary-color">
         <ul class="nav nav-tabs" style="margin:10px;">
             {% for engine in Answer %}
                 <li id="tab_{{engine}}" {% if forloop.first %} class="active" {% endif %}
-                    onclick="changeTab('{{engine}}')"><a class="my_tab">{{engine}}</a></li>
+                    onclick="changeTab('{{engine}}')"><a class="my_tab primary-text-color">{{engine}}</a></li>
             {% endfor %}
         </ul>
-        <div class="results_holder" >
+        <div class="results_holder default-secondary-color" >
         {% for engine, names in Answer.items %}
             <div class="results_container" id="tab_div_{{engine}}" {% if not forloop.first %} style="display:none" {% endif %}>
             {% for name, results in names.items %}
-                <div class="result_header" data-toggle="collapse" data-target="#{{engine}}_{{forloop.counter}}_collapse">
+                <div class="result_header divider-color primary-text-color" data-toggle="collapse" data-target="#{{engine}}_{{forloop.counter}}_collapse"
+                        href="#{{engine}}_{{forloop.counter}}_collapse">
                     <h2 class="result_h2">Results for "{{name}}": </h2>
                 </div>
                 <div id="{{engine}}_{{forloop.counter}}_collapse" class="collapse result_container">
-                    <table class="table _table-striped _table-hover" id="{{engine}}_{{forloop.counter}}_table">
+                    <table class="table" id="{{engine}}_{{forloop.counter}}_table">
                         <thead>
                             <tr>
                                 <th>Name</th>

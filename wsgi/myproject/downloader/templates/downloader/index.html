@@ -18,10 +18,10 @@
         </div>
     </div>
 
-        <div id="main_app" class="container main_app">
+        <div id="main_app" class="container main_app default-primary-color">
 
         <div>
-            <div id="select-engines" class="select-engines-body">
+            <div id="select-engines" class="select-engines-body default-secondary-color">
                 <div class="engines-block">
                     <label class="checkbox-inline search-engine-holder" ng-repeat="(e, val) in engines">
                         <input type="checkbox" value="" ng-click="selectEngine(e);" checked>
@@ -35,13 +35,13 @@
 
             <div class="query_area" >
                 <form novalidate>
-                    <div class="form_holder" >
+                    <div class="form_holder default-secondary-color" >
                             <input class="input insert_query" placeholder="Enter Query" type="text" ng-model="query"/>
-                            <button class="btn myButton" ng-click="ok()"> Add </button>
+                            <button class="btn btn-accent myButton " ng-click="ok()"> Add </button>
                     </div>
                 </form>
 
-                <div class="table_area" style="background-color: white;">
+                <div class="table_area default-secondary-color">
                     <table class="table _table-striped table-hover" id="quries_table">
                         <tr class="tr" ng-repeat="x in queries track by $index" ng-init="queryIndex = $index">
                             <td class="td">
@@ -54,10 +54,10 @@
                                         </div>
                                     </td>
                                     <td class="query_edit">
-                                        <button class="btn pull-right myButton " ng-click="updateQuery(queryIndex)"> Edit </button>
+                                        <button class="btn btn-accent pull-right myButton " ng-click="updateQuery(queryIndex)"> Edit </button>
                                     </td>
                                     <td class="query_remove">
-                                        <button class="btn pull-right myButton" ng-click="remove(queryIndex)"> Remove </button>
+                                        <button class="btn btn-accent pull-right myButton" ng-click="remove(queryIndex)"> Remove </button>
                                     </td>
                                 </table>
                             </td>
@@ -69,10 +69,10 @@
 
             <div class="buttom_toolbar">
                 <br>
-                <button class="btn myButton actionButton" ng-click="clearAll()">
+                <button class="btn btn-accent myButton actionButton" ng-click="clearAll()">
                     <strong>Clear all</strong> <span class="glyphicon  glyphicon-remove"></span>
                 </button>
-                <button class="btn pull-right myButton actionButton" ng-click="go(queries)">
+                <button class="btn pull-right myButton btn-accent actionButton" ng-click="go(queries)">
                     <strong>Search </strong><span class="glyphicon glyphicon-search"></span>
                 </button>
             </div>
