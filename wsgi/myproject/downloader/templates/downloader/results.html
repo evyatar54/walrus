@@ -1,7 +1,7 @@
 {% extends 'downloader/base.html' %}
 {% block content %}
 <div class="container main_app wider default-secondary-color">
-        <ul class="nav nav-tabs" style="margin:10px;">
+        <ul class="nav nav-tabs divider-color" style="margin:10px;">
             {% for engine in Answer %}
                 <li id="tab_{{engine}}" {% if forloop.first %} class="active" {% endif %}
                     onclick="changeTab('{{engine}}')"><a class="my_tab primary-text-color">{{engine}}</a></li>
@@ -34,7 +34,7 @@
                                 <td class="td td-responsive">{{r.2}} </td>
                                 <td class="td td-responsive">{{r.3}} </td>
                                 <td class="td td-responsive">
-                                    <a href="{{r.4}}" class="btn myButton" title="Magnet Link">Download</a>
+                                    <a href="{{r.4}}" class="btn myButton btn-accent" title="Magnet Link">Download</a>
                                 </td>
                             </tr>
                         {% endfor %}
@@ -60,9 +60,6 @@ function changeTab(engine) {
     currShownDiv = engine;
 }
 
-    $(document).ready(function(){
-        $('.result_container').on('click', function(){ $(this).toggle();})
-    });
 </script>
 
 {% endblock %}
