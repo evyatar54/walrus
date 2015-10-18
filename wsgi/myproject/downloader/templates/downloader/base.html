@@ -15,12 +15,18 @@
 
     </head>
     <body class="light-primary-color">
-        <nav class="navbar navbar-inverse navbar-fixed-top navbar-dark dark-primary-color">
+
+        <nav class="navbar navbar-inverse navbar-fixed-top navbar-dark dark-primary-color" style="z-index: 1000;">
             <div class="container-fluid">
                 <div class="navbar-header">
+                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
                   <a class="navbar-brand" style="color: white;" href="{% url 'index' %}" >Home</a>
                 </div>
-                <div>
+                <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="#" style="color: white;">Page 1</a></li>
                         <li><a href="#" style="color: white;">Page 2</a></li>
@@ -29,6 +35,7 @@
                 </div>
             </div>
         </nav>
+
         <div class="container site_header default-primary-color text-primary-color">
             <br>
             <div class="page-header divider-color">
