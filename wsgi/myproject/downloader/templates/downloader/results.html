@@ -11,7 +11,7 @@
         {% for engine, names in Answer.items %}
             <div class="results_container" id="tab_div_{{engine}}" {% if not forloop.first %} style="display:none" {% endif %}>
             {% for name, results in names.items %}
-                <div class="result_header divider-color primary-text-color" data-toggle="collapse" data-target="#{{engine}}_{{forloop.counter}}_collapse"
+                <div onclick="none()" class="result_header divider-color primary-text-color" data-toggle="collapse" data-target="#{{engine}}_{{forloop.counter}}_collapse"
                         href="#{{engine}}_{{forloop.counter}}_collapse">
                     <h2 class="result_h2">Results for "{{name}}": </h2>
                 </div>
@@ -49,17 +49,19 @@
 
 <script>
 
-var currShownDiv = "{% for key in Answer %}{%if forloop.first %}{{key}}{% else %}{%endif%}{% endfor %}";
-function changeTab(engine) {
 
-    $('#tab_'+currShownDiv).removeClass('active');
-    $('#tab_'+engine).addClass('active');
+    var currShownDiv = "{% for key in Answer %}{%if forloop.first %}{{key}}{% else %}{%endif%}{% endfor %}";
+    function changeTab(engine) {
 
-    $('#tab_div_'+currShownDiv).css('display', 'none');
-    $('#tab_div_'+engine).css('display', 'block');
-    currShownDiv = engine;
-}
+        $('#tab_'+currShownDiv).removeClass('active');
+        $('#tab_'+engine).addClass('active');
 
+        $('#tab_div_'+currShownDiv).css('display', 'none');
+        $('#tab_div_'+engine).css('display', 'block');
+        currShownDiv = engine;
+    }
+
+    function none(){}
 </script>
 
 {% endblock %}
