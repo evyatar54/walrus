@@ -1,6 +1,11 @@
 {% extends "downloader/base.html" %}
 {% block content %}
+{% load staticfiles %}
+
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+<script src="{% static 'downloader/js/app.js' %}"></script>
+
+
 {% verbatim %}
     <div ng-app="myApp" ng-controller="queryCtrl">
 
@@ -20,23 +25,29 @@
 
         <div id="main_app" class="container main_app default-primary-color">
 
-        <div>
-            <div id="select-engines" class="select-engines-body default-secondary-color">
-                <div class="engines-block">
-                    <label class="checkbox-inline search-engine-holder" ng-repeat="(e, val) in engines">
-                        <input type="checkbox" value="" ng-click="selectEngine(e);" checked>
-                            {{val["name"]}}
-                        </input>
-                    </label>
+            <div>
+                <div id="select-engines" class="select-engines-body default-secondary-color">
+                    <div class="engines-block">
+                        <label class="checkbox-inline search-engine-holder" ng-repeat="(e, val) in engines">
+                            <input type="checkbox" value="" ng-click="selectEngine(e);" checked>
+                                {{val["name"]}}
+                            </input>
+                        </label>
+                    </div>
                 </div>
             </div>
-        </div>
-        <br>
+
+            <div id="DragNDrop" ondrop="drop(event)" ondragover="allowDrop(event)" class="center_align secondary-text-color default-secondary-color">
+                <p class="center_aligned_text">
+                    Drag and Drop here any text files or plain text with queries in order to add them into the list <br>
+                    [ One query in each line ]
+                </p>
+            </div>
 
             <div class="query_area" >
                 <form novalidate>
                     <div class="form_holder default-secondary-color" >
-                            <input class="input insert_query" placeholder="Enter Query" type="text" ng-model="query"/>
+                            <input class="input insert_query" placeholder="Or Enter Query" type="text" ng-model="query"/>
                             <button class="btn btn-accent myButton " ng-click="ok()"> Add </button>
                     </div>
                 </form>
@@ -81,157 +92,5 @@
 
     </div>
 {% endverbatim  %}
-
-<script>
-
-var app = angular.module('myApp', [], function ($compileProvider) {
-
-  $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|magnet):/);
-  
-});
-app.controller('queryCtrl', function($scope, $location, $anchorScroll, $filter) {
-
-    $scope.engines = { 'KickassTorrents':{"active":1, "name": 'Kickass Torrents'},
-        'ThePirateBay':{"active":1, "name": 'The Pirate Bay'}};
-
-    $scope.queries = new Array();
-    $scope.results = {};
-
-    $scope.ok = function()
-	{
-		if(!$scope.query)
-			alert("Please enter a non empty query into the list");
-		else
-		{
-			$scope.queries.push(angular.copy($scope.query));
-			$scope.query = "";
-		}
-    };
-	
-	$scope.remove = function(index)
-	{
-		$scope.queries.splice(index,1);
-	};
-
-    	$scope.updateQuery = function(index)
-	{
-		var input = '#query_input_' + index;
-		var label = '#query_text_'  + index;
-
-		$(input).val($(label).text());
-		$(input).show();
-
-		$(label).hide();
-	};
-
-	$scope.submited_query = function(index)
-	{
-		var input = '#query_input_' + index;
-		var label = '#query_text_'  + index;
-
-		var text = $(input).val();
-		$(label).text(text);
-		$(input).hide();
-		$(label).show();
-
-		$scope.queries[index] = text;
-	}
-
-    $scope.clearAll = function()
-    {
-        $scope.queries = [];
-    }
-
-	$scope.go = function(Qs) {
-        if (Qs.length == 0)
-        {
-            alert('Please enter some queries into the list')
-            return;
-        }
-        $('#myModal').modal({backdrop: 'static', keyboard: false});
-		$('#myModal').modal('show');
-        var _url = "{% url 'search' %}";
-        var handler500 = function() { alert("500: Internal Server Error"); };
-
-        var Es = $filter('active_only')($scope.engines)
-        Es = Object.keys(Es);
-
-		var data = {state:"inactive", "Qs": Qs, "Engines": Es};
-
-        searchQueries(_url, data);
-    };
-
-    function searchQueries(_url, data)
-    {
-        window.location.href = _url+'?'+ $.param(data)
-        /*
-            $.ajax({
-                url: _url,
-                method: 'GET',
-                data: data,
-
-                success: function(data, status, xhr){
-                    $('#myModal').modal('hide');
-                    $('div.body').html(data);
-                },
-                fail: function(response) {
-                    $('#myModal').modal('hide');
-                    alert('Failed to search server');
-                }
-            });
-        */
-    }
-
-
-	function goToElement(event)
-	{
-		var id = event.currentTarget.id;
-		goToElementById(id)
-	};
-
-	function goToElementById(id)
-	{
-		$location.hash(id);
-		$anchorScroll();
-	};
-
-    $scope.selectEngine = function(key)
-    {
-        $scope.engines[key]['active'] = 1 - $scope.engines[key]['active'];
-    }
-
-})
-.directive('ngEnter', function() {
-        return function(scope, element, attrs) {
-            element.bind("keydown keypress", function(event) {
-                if(event.which === 13) {
-                    scope.$apply(function(){
-                        scope.$eval(attrs.ngEnter, {'event': event});
-                    });
-
-                    event.preventDefault();
-                }
-            });
-        };
-    });
-
-app.filter('active_only', function() {
-
-    return function(input) {
-
-        var output = {};
-
-        for (var e in input)
-        {
-            if(input[e]['active'] == 1)
-                output[e] = input[e]
-        }
-        return output;
-
-    }
-
-});
-
-</script>
 
 {% endblock %}

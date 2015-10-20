@@ -63,15 +63,25 @@ description
 	font-size: 1.5em;
 }
 
-/*
-div.select-engines-div
+
+div.center_align
 {
-	padding: 10px;
-    margin-top: 1px;
-    color: white;
-    text-align: center;
+    _position: static;
+    height:100px;
+    width:100%;
+    display: table;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 0 10px black;
 }
-*/
+
+.center_aligned_text
+{
+    display: table-cell;
+    vertical-align: middle;
+    text-align:center;
+}
+
 div.form_holder
 {
     padding: 20px;

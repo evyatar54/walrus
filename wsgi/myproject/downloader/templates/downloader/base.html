@@ -12,6 +12,7 @@
         {% load staticfiles %}
         <link rel="shortcut icon" href="{% static 'downloader/favicon.ico' %}" />
         <link rel="stylesheet" type="text/css" href="{% static 'downloader/style.css' %}" />
+        <script language="javascript"> var URL_SEARCH = "{% url 'search' %}"; </script>
 
     </head>
     <body class="light-primary-color">
@@ -28,9 +29,11 @@
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#" style="color: white;">Page 1</a></li>
-                        <li><a href="#" style="color: white;">Page 2</a></li>
+                        <li><a href="{% url 'index' %}" style="color: white;">New Search</a></li>
+                        <li><a href="#" style="color: white;">Scroll Top</a></li>
+                        <!--
                         <li><a href="#" style="color: white;">Page 3</a></li>
+                        -->
                     </ul>
                 </div>
             </div>
@@ -45,9 +48,8 @@
         </div>
 
         <br>
-
         {% block content %}
         {% endblock %}
-
+        <br>
     </body>
 </html>
