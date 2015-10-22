@@ -2,7 +2,7 @@
 {% block content %}
 <div class="container main_app wider default-secondary-color">
         <ul class="nav nav-tabs divider-color" style="margin:10px;">
-            {% for engine in Answer %}
+            {% for engine in Answer%}
                 <li id="tab_{{engine}}" {% if forloop.first %} class="active" {% endif %}
                     onclick="changeTab('{{engine}}')"><a class="my_tab primary-text-color">{{engine}}</a></li>
             {% endfor %}

@@ -17,7 +17,8 @@
                   <h4 class="modal-title">Loading</h4>
                 </div>
                 <div class="modal-body">
-                    Please wait while searching for results ...
+                    Please wait while searching for results ...<br>
+                    The search may take up to few minutes, depending on the length of the list
                 </div>
             </div>
         </div>
@@ -39,7 +40,7 @@
 
             <div id="DragNDrop" ondrop="drop(event)" ondragover="allowDrop(event)" class="center_align secondary-text-color default-secondary-color">
                 <p class="center_aligned_text">
-                    Drag and Drop here any text files or plain text with queries in order to add them into the list <br>
+                    Drag and Drop here any text files or just text with queries in order to add them into the list <br>
                     [ One query in each line ]
                 </p>
             </div>
@@ -47,7 +48,7 @@
             <div class="query_area" >
                 <form novalidate>
                     <div class="form_holder default-secondary-color" >
-                            <input class="input insert_query" placeholder="Or Enter Query" type="text" ng-model="query"/>
+                            <input class="input insert_query" placeholder="Paste Or Enter Query" onpaste="handlePaste(this, event);" type="text" ng-model="query"/>
                             <button class="btn btn-accent myButton " ng-click="ok()"> Add </button>
                     </div>
                 </form>

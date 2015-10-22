@@ -2,6 +2,26 @@
  * Created by Walrus on 19/10/2015.
  */
 
+
+function handlePaste(elem, e)
+{
+    e.preventDefault();
+    if (e.clipboardData && e.clipboardData.getData) {
+        var text = "";
+        if (/text\/html/.test(e.clipboardData.types)) {
+            text = e.clipboardData.getData('text/plain');
+        }
+        else if (/text\/plain/.test(e.clipboardData.types)) {
+            text = e.clipboardData.getData('text/plain');
+        }
+        //console.log(text)
+        var data =  renderText(text);
+        var scope = angular.element('[ng-controller="queryCtrl"]').scope();
+        scope.addToList(data);
+    }
+    else{}
+}
+
 function allowDrop(ev) {
     ev.preventDefault();
 }
@@ -44,7 +64,7 @@ function renderDarggedData(text, files)
                     {
                         var data =  renderText(e.target.result);
                         var scope = angular.element('[ng-controller="queryCtrl"]').scope();
-                        console.log(data);
+                        //console.log(data);
                         scope.addToList(data);
                     };
                 })(f);
@@ -74,7 +94,6 @@ function renderText(text)
     }
     return ret;
 }
-
 
 var app = angular.module('myApp', [], function ($compileProvider) {
 
@@ -153,10 +172,10 @@ app.controller('queryCtrl', function($scope, $location, $anchorScroll, $filter) 
         }
         $('#myModal').modal({backdrop: 'static', keyboard: false});
 		$('#myModal').modal('show');
-        //var _url = "{% url 'search' %}";
-        var _url = URL_SEARCH;
-        var handler500 = function() { alert("500: Internal Server Error"); };
 
+        var _url = URL_SEARCH;
+
+        var handler500 = function() { alert("500: Internal Server Error"); };
         var Es = $filter('active_only')($scope.engines)
         Es = Object.keys(Es);
 
