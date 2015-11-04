@@ -27,7 +27,7 @@ class Kickass_Searcher:
 
 def search(URL, query, result_dict):
     url_query = urllib.parse.quote(query)
-    page = requests.get(URL + '/usearch/' + url_query)
+    page = requests.get(URL + '/usearch/' + url_query, timeout=10)
     print("got url: ", page.url)
     tree = html.fromstring(page.text)
     torrents = get_results_from_tree(tree)

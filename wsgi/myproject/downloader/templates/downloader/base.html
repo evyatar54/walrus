@@ -10,45 +10,27 @@
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
         {% load staticfiles %}
+
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+        <script src="{% static 'downloader/js/app.js' %}"></script>
+
         <link rel="shortcut icon" href="{% static 'downloader/favicon.ico' %}" />
         <link rel="stylesheet" type="text/css" href="{% static 'downloader/style.css' %}" />
-        <script language="javascript"> var URL_SEARCH = "{% url 'search' %}"; </script>
+        <script language="javascript"> var URL_SEARCH = "{% url 'search' %}"; var app = ''; </script>
 
     </head>
     <body class="light-primary-color">
 
-        <nav class="navbar navbar-inverse navbar-fixed-top navbar-dark dark-primary-color" style="z-index: 1000;">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                  </button>
-                  <a class="navbar-brand" style="color: white;" href="{% url 'index' %}" >Home</a>
-                </div>
-                <div class="collapse navbar-collapse" id="myNavbar">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="{% url 'index' %}" style="color: white;">New Search</a></li>
-                        <li><a href="#" style="color: white;">Scroll Top</a></li>
-                        <!--
-                        <li><a href="#" style="color: white;">Page 3</a></li>
-                        -->
-                    </ul>
-                </div>
-            </div>
-        </nav>
 
-        <div class="container site_header default-primary-color text-primary-color">
-            <br>
-            <div class="page-header divider-color">
-                <header>Toorrents</header>
-            </div>
-            <description class="text-primary-color" > search multiple queries simultaneously over multiple search engines </description>
-        </div>
-
-        <br>
         {% block content %}
+            <div id="myApp" ng-app="myApp" ng-controller="queryCtrl">
+
+                <div id="content">
+                    {% include "downloader/navbar.html"%}
+                    {% include "downloader/index.html"%}
+                    {% include "downloader/ang_results.html"%}
+                </div>
+            </div>
         {% endblock %}
         <br>
     </body>

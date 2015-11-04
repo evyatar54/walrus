@@ -15,7 +15,7 @@ from .Searchers import Kickass_Searcher
 
 def index(request):
     try:
-        a = render(request, 'downloader/index.html' )
+        a = render(request, 'downloader/base.html' )
         return a
     except:
         traceback.print_exc(file=sys.stdout)
@@ -35,11 +35,13 @@ def search(request):
                     print("Engine: ", engine)
                     t = getSearcherByEngine(engine)
                     Results[engine] = t.search_queries(Qs)
-        return render(request, 'downloader/results.html', {
+                    """
+        return render(request, 'downloader/ang_results.html', {
             'Answer': Results,
             'error_message': "Error...",
             })
-        # return HttpResponse(json.dumps(Results), content_type="application/json")
+            """
+        return HttpResponse(json.dumps(Results), content_type="application/json")
     except:
         print(traceback.format_exc())
     print('wrong !!')

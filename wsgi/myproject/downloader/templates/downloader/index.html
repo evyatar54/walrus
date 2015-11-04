@@ -1,14 +1,4 @@
-{% extends "downloader/base.html" %}
 {% block content %}
-{% load staticfiles %}
-
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
-<script src="{% static 'downloader/js/app.js' %}"></script>
-
-
-{% verbatim %}
-    <div ng-app="myApp" ng-controller="queryCtrl">
-
 
     <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog">
@@ -24,7 +14,9 @@
         </div>
     </div>
 
-        <div id="main_app" class="container main_app default-primary-color">
+
+    {% verbatim %}
+        <div id="main_app" class="container main_app default-primary-color" style="display:block">
 
             <div>
                 <div id="select-engines" class="select-engines-body default-secondary-color">
@@ -77,8 +69,9 @@
                     </table>
                 </div>
             </div>
-            <br>
+            {% endverbatim  %}
 
+            <br>
             <div class="buttom_toolbar">
                 <br>
                 <button class="btn btn-accent myButton actionButton" ng-click="clearAll()">
@@ -91,7 +84,5 @@
         </div>
         <br>
 
-    </div>
-{% endverbatim  %}
 
 {% endblock %}

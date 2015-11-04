@@ -1,26 +1,6 @@
 
-/* COLORS :
+/* official palette */
 
-### DEEP-PURPLE SET:
-#   primary color:    #673AB7
-#   content color:    #B39DDB
-#   background color: #EDE7F6
-
-*/
-/* official palette*
-
-.dark-primary-color    { background: #512DA8; }
-.default-primary-color { background: #673AB7; }
-.light-primary-color   { background: #D1C4E9; }
-.text-primary-color    { color: white; }
-.accent-color          { background: #03A9F4; }
-.primary-text-color    { color: #212121; }
-.secondary-text-color  { color: #727272; }
-.divider-color         { border-color: #B6B6B6; }
-
-/* additioning to palette*/
-
-/*testing palette*/
 
 .dark-primary-color    { background: #00796B; }
 .default-primary-color { background: #009688; }
@@ -231,6 +211,8 @@ div.result_header
 div.result_header:hover
 {
 	background-color: #EDE7F6;
+    cursor: pointer;
+    color: #00796B;
 }
 
 h2.result_h2
@@ -254,55 +236,7 @@ a.my_tab:hover
 
 
 
-/* accent button right now
-
-.btn-accent {
-  color: #FFFFFF;
-  background-color: #03A9F4;
-  _border-color: #2B00FF;
-}
-
-.btn-accent:hover,
-.btn-accent:focus,
-.btn-accent:active,
-.btn-accent.active,
-.open .dropdown-toggle.btn-accent {
-  color: #FFFFFF;
-  background-color: #0377F4;
-  _border-color: #2B00FF;
-}
-
-.btn-accent:active,
-.btn-accent.active,
-.open .dropdown-toggle.btn-accent {
-  background-image: none;
-}
-
-.btn-accent.disabled,
-.btn-accent[disabled],
-fieldset[disabled] .btn-accent,
-.btn-accent.disabled:hover,
-.btn-accent[disabled]:hover,
-fieldset[disabled] .btn-accent:hover,
-.btn-accent.disabled:focus,
-.btn-accent[disabled]:focus,
-fieldset[disabled] .btn-accent:focus,
-.btn-accent.disabled:active,
-.btn-accent[disabled]:active,
-fieldset[disabled] .btn-accent:active,
-.btn-accent.disabled.active,
-.btn-accent[disabled].active,
-fieldset[disabled] .btn-accent.active {
-  background-color: #03A9F4;
-  border-color: #2B00FF;
-}
-
-.btn-accent .badge {
-  color: #03A9F4;
-  background-color: #FFFFFF;
-}
-*/
-
+/* accent button right now */
 
 .btn-accent {
   color: #ffffff;

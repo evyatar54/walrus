@@ -28,7 +28,7 @@ class TPB_Searcher:
 
 def search(URL, query, result_dict):
 	url_query = urllib.parse.quote(query)
-	page = requests.get(URL + '/search/' + url_query + '/0/99/0')
+	page = requests.get(URL + '/search/' + url_query + '/0/99/0', timeout=10)
 	print("got url: ", page.url)
 	tree = html.fromstring(page.text)
 	torrents = get_results_from_tree(tree)

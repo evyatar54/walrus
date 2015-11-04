@@ -1,0 +1,50 @@
+{% verbatim%}
+
+    <div id="results_page" class="container main_app wider default-secondary-color" style="display:none" >
+        <ul class="nav nav-tabs divider-color" style="margin:10px;">
+                <li ng-repeat="(engine,data) in results" id="tab_{{engine}}" ng-click="changeTab(engine)">
+                    <a class="my_tab primary-text-color">{{engine}}</a>
+                </li>
+        </ul>
+
+        <div class="results_holder default-secondary-color">
+
+            <div ng-repeat="(engine,Rs) in results" class="results_container" id="tab_div_{{engine}}" style="display: none">
+
+                <div ng-repeat="(name, vals) in Rs track by $index">
+                    <div onclick="none()" class="result_header divider-color primary-text-color"
+                         data-toggle="collapse" data-target="#{{engine}}_{{$index}}_collapse">
+                        <h2 class="result_h2">{{engine}}'s Results for "{{name}}": </h2>
+                    </div>
+                    <div id="{{engine}}_{{$index}}_collapse" class="collapse result_container">
+
+                        <table class="table" id="{{engine}}_{{$index}}_table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>General Info</th>
+                                    <th>Seeds</th>
+                                    <th>leeches</th>
+                                    <th>Download</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="r in vals" class="tr" >
+                                    <td class="td td-responsive">{{r[0]}} </td>
+                                    <td class="td td-responsive">{{r[1]}} </td>
+                                    <td class="td td-responsive">{{r[2]}} </td>
+                                    <td class="td td-responsive">{{r[3]}} </td>
+                                    <td class="td td-responsive">
+                                        <a href="{{r[4]}}" class="btn myButton btn-accent" title="Magnet Link">Download</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endverbatim %}
