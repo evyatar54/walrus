@@ -47,6 +47,31 @@ def search(request):
     print('wrong !!')
     return HttpResponse('Rendering error')
 
+def singlesearch(request):
+    try:
+        print(request.POST)
+        Results = {}
+        if request.method == 'GET':
+            if 'Q' in request.GET and 'Engines[]' in request.GET:
+
+                Es = request.GET.getlist('Engines[]')
+                Qs = request.GET['Q']
+                for engine in Es:
+                    print("Engine: ", engine)
+                    t = getSearcherByEngine(engine)
+                    Results[engine] = t.search_queries(Qs)
+                    """
+        return render(request, 'downloader/ang_results.html', {
+            'Answer': Results,
+            'error_message': "Error...",
+            })
+            """
+        return HttpResponse(json.dumps(Results), content_type="application/json")
+    except:
+        print(traceback.format_exc())
+    print('wrong !!')
+    return HttpResponse('Rendering error')
+
 
 def getSearcherByEngine(engine):
     if engine == "Default":

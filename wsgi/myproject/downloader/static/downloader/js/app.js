@@ -15,9 +15,10 @@ app.controller('queryCtrl', function($scope, $filter) {
     /**
      * changing the website's div so it will fell like moving pages.
      * @param page   - string - page's name to go to.
-     * @param action - string - the action the user made to change page [ click, backwards/forwards, update ]
-     * @param backup - JSON   - content to backup regarding the current page
-     * @param data   - JSON   - content to load regarding the next page.
+     * @param action - string - the action the user made to change page [ click, backwards/forwards, update ].
+     * @param data   - JSON   - parameter for future use.
+     * @vaiable backup - JSON   - content to backup regarding the current page.
+     * @vaiable keep   - JSON   - content to load regarding the next page.
      */
 
     $scope.page_control = function(page, action, data) //changing the page's content must go through here.
@@ -60,15 +61,16 @@ app.controller('queryCtrl', function($scope, $filter) {
         if(action == 'backwards')
         {
         }
-        try
-        {
+
+        try{
             $scope.$digest();
-        }
-        catch(e){}
+        }catch(e){}
 
         switch(page) {
             case 'main_app':
                 //main_app adjustments
+                if(action == "click")
+                    $scope.queries = [];
                 break;
             case 'results_page':
                 //results_page adjustments
@@ -192,8 +194,8 @@ app.controller('queryCtrl', function($scope, $filter) {
             alert('Please enter some queries into the list')
             return;
         }
-        $('#myModal').modal({backdrop: 'static', keyboard: false});
-		$('#myModal').modal('show');
+        //$('#myModal').modal({backdrop: 'static', keyboard: false});
+        //$('#myModal').modal('show');
 
         var _url = URL_SEARCH;
 
@@ -201,26 +203,57 @@ app.controller('queryCtrl', function($scope, $filter) {
         var Es = $filter('active_only')($scope.engines)
         Es = Object.keys(Es);
 
-		var data = {state:"inactive", "Qs": Qs, "Engines": Es};
+		//var data = {state:"inactive", "Qs": Qs, "Engines": Es};
+        //searchQueries(_url, data);
 
-        searchQueries(_url, data);
+        for (var q in  $scope.queries)
+        {
+            var data = {state: "inactive", Engines: Es, Q: $scope.queries[q] }
+            //console.log(data);
+            searchQuery("/downloader/singlesearch", data);
+        }
+        $scope.page_control('results_page', "click", {results: $scope.results} );
+        $scope.changeTab(Object.keys($scope.results)[0]);
     };
 
-    function searchQueries(_url, data)
+    function searchQuery(_url, data)
     {
-        //window.location.href = _url+'?'+ $.param(data)
         $.get(_url, data).success(function(response){
 
-            //$scope.$apply(function(){
-                    $scope.results = response;
-              //  });
-             $('#myModal').modal('hide');
-            $scope.page_control('results_page', "click", {results: $scope.results} );
-            $scope.changeTab(Object.keys($scope.results)[0]);
+            //$scope.results = response;
+            console.log(response);
+            for (var e in response)
+            {
+                Rs = response[e].name;
+                console.log(Rs);
+                for (r in Rs)
+                {
+                    if(! $scope.results[e])
+                        $scope.results[e] = [];
+                    $scope.results[e].push(r);
 
-        }).fail(function(){  $('#myModal').modal('hide'); });
-
+                }
+            }
+            //$('#myModal').modal('hide');
+            //console.log($scope.results);
+        }).fail(function(){  $('#myModal').modal('hide');});
     }
+
+    //function searchQueries(_url, data)
+    //{
+    //    //window.location.href = _url+'?'+ $.param(data)
+    //    $.get(_url, data).success(function(response){
+    //
+    //        //$scope.$apply(function(){
+    //                $scope.results = response;
+    //          //  });
+    //         $('#myModal').modal('hide');
+    //        $scope.page_control('results_page', "click", {results: $scope.results} );
+    //        $scope.changeTab(Object.keys($scope.results)[0]);
+    //
+    //    }).fail(function(){  $('#myModal').modal('hide'); });
+    //
+    //}
 
 
 	//function goToElement(event)
